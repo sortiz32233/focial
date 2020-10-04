@@ -114,27 +114,28 @@ class CTextField extends StatelessWidget {
   final InputBorder border;
   final bool enabled;
 
-  const CTextField({Key key,
-    this.hint,
-    this.label,
-    this.validateLength,
-    this.save,
-    this.isObscure,
-    this.maxLength,
-    this.controller,
-    this.maxLines,
-    this.initialValue,
-    this.suffixIcon,
-    this.enabled,
-    this.padding = const EdgeInsets.all(0.0),
-    this.suffix,
-    this.contentPadding =
-    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-    this.textInputType,
-    this.validator,
-    this.onChange,
-    this.border,
-    this.prefix})
+  const CTextField(
+      {Key key,
+      this.hint,
+      this.label,
+      this.validateLength,
+      this.save,
+      this.isObscure,
+      this.maxLength,
+      this.controller,
+      this.maxLines,
+      this.initialValue,
+      this.suffixIcon,
+      this.enabled,
+      this.padding = const EdgeInsets.all(0.0),
+      this.suffix,
+      this.contentPadding =
+          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      this.textInputType,
+      this.validator,
+      this.onChange,
+      this.border,
+      this.prefix})
       : super(key: key);
 
   @override

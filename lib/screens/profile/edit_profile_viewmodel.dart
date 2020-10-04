@@ -17,10 +17,10 @@ class EditProfileViewModel extends ChangeNotifier {
   bool _usernameAvailable = false;
   bool _usernameChecked = false;
   bool _usernameError = false;
-  BuildContext _context;
+  // BuildContext _context;
 
   void init(BuildContext context) {
-    _context = context;
+    // _context = context;
     // print(find<UserData>().currentUser);
     currentUser = find<UserData>().currentUser;
   }

@@ -8,9 +8,9 @@ class ViewStoryViewmodel extends ChangeNotifier {
     // incValue();
   }
 
-  void _pop(BuildContext context) {
-    Navigator.of(context).pop();
-  }
+  // void _pop(BuildContext context) {
+  //   Navigator.of(context).pop();
+  // }
 
   double get barValue => _barValue;
 

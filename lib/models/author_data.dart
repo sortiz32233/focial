@@ -11,7 +11,8 @@ class AuthorData {
 
   AuthorData({this.id, this.photoUrl, this.username});
 
-  factory AuthorData.fromJson(Map<String, dynamic> json) => _$AuthorDataFromJson(json);
+  factory AuthorData.fromJson(Map<String, dynamic> json) =>
+      _$AuthorDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthorDataToJson(this);
 }

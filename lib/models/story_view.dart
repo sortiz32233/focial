@@ -10,7 +10,8 @@ class StoryView {
 
   StoryView({this.viewer, this.timestamp});
 
-  factory StoryView.fromJson(Map<String, dynamic> json) => _$StoryViewFromJson(json);
+  factory StoryView.fromJson(Map<String, dynamic> json) =>
+      _$StoryViewFromJson(json);
 
   Map<String, dynamic> toJson() => _$StoryViewToJson(this);
 }

@@ -216,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () => pushScreen(
                     EditProfileScreen(
                         // user: userDataProvider.currentUser
-                    ),
+                        ),
                     context),
                 icon: FontAwesomeIcons.userAlt,
                 text: 'Edit Profile',

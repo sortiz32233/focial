@@ -30,16 +30,14 @@ class AppTheme {
   static const _kFontFam = 'Icons';
   static const _kFontPkg = null;
 
-  static const IconData home = IconData(
-      0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData mail_alt = IconData(
-      0xf0e0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData mail_alt =
+      IconData(0xf0e0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 
   static ThemeData getTheme() {
     return ThemeData(
-      fontFamily: GoogleFonts
-          .openSans()
-          .fontFamily,
+      fontFamily: GoogleFonts.openSans().fontFamily,
       backgroundColor: AppTheme.backgroundColor,
       primarySwatch: Colors.green,
       accentColor: AppTheme.orange,

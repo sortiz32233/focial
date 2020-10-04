@@ -28,9 +28,9 @@ class Story {
 
   Map<String, dynamic> toJson() => _$StoryToJson(this);
 
-  static List<Story> listFromJSON(var jsonList){
+  static List<Story> listFromJSON(var jsonList) {
     List<Story> stories = [];
-    for(var c in jsonList){
+    for (var c in jsonList) {
       stories.add(Story.fromJson(c));
     }
     return stories;

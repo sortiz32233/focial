@@ -24,6 +24,7 @@ class NewPostViewModel extends ChangeNotifier {
   List<String> _images = [];
   final TextEditingController captionController = TextEditingController();
   String _captionError;
+  final imagePicker = ImagePicker();
 
   void init(BuildContext context) {
     _context = context;
@@ -61,8 +62,8 @@ class NewPostViewModel extends ChangeNotifier {
   }
 
   Future<void> addImage() async {
-    postPicture = await ImagePicker.platform
-        .pickImage(source: ImageSource.gallery, imageQuality: 80);
+    postPicture = await imagePicker.getImage(
+        source: ImageSource.gallery, imageQuality: 80);
 
     if (postPicture != null) {
       File croppedFile = await ImageCropper.cropImage(

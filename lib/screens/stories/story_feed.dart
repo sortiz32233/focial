@@ -67,11 +67,12 @@ class ViewStoryButton extends StatelessWidget {
   final whiteBackgroundPadding = 3.0;
   final String avatar;
 
-  const ViewStoryButton({Key key,
-    this.loading = false,
-    this.seen = false,
-    this.currentUser = false,
-    this.avatar = Assets.DEFAULT_PROFILE_PICTURE})
+  const ViewStoryButton(
+      {Key key,
+      this.loading = false,
+      this.seen = false,
+      this.currentUser = false,
+      this.avatar = Assets.DEFAULT_PROFILE_PICTURE})
       : super(key: key);
 
   @override
@@ -173,5 +174,3 @@ class CurrentUserStoryButton extends StatelessWidget {
     );
   }
 }
-
-

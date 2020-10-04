@@ -8,7 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  BuildContext _context;
+  // BuildContext _context;
   var pp;
   var cp;
   final userData = find<UserData>();
@@ -65,6 +65,6 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   void init(BuildContext context) {
-    _context = context;
+    // _context = context;
   }
 }
