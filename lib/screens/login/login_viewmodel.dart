@@ -17,12 +17,16 @@ class LoginViewModel extends ChangeNotifier {
   String email, password;
   bool _activateResendVerificationLink = false;
   bool _passwordShown = false;
-  bool _loginEnabled = true;
+  AuthState state;
 
   BuildContext _context;
 
   void init(BuildContext context) {
     _context = context;
+    authService.authState.listen((event) {
+      state = event;
+      notifyListeners();
+    });
   }
 
   void forgotPassword() {
@@ -54,7 +58,6 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> login(BuildContext context) async {
-    loginEnabled = false;
     final response = await authService.login(email: email, password: password);
     if (response.isSuccessful) {
       // AppOverlays.showSuccess("Server response", "Login Successful");
@@ -71,7 +74,6 @@ class LoginViewModel extends ChangeNotifier {
       AppOverlays.showError(
           "Server response", ServerResponse.getMessage(response));
     }
-    loginEnabled = true;
     hideLoader();
   }
 
@@ -98,13 +100,6 @@ class LoginViewModel extends ChangeNotifier {
     _passwordShown = value;
     notifyListeners();
   }
-
-  bool get loginEnabled => _loginEnabled;
-  set loginEnabled(bool value) {
-    _loginEnabled = value;
-    notifyListeners();
-  }
-
 
   bool get activateResendVerificationLink => _activateResendVerificationLink;
 

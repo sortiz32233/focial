@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focial/screens/login/login_viewmodel.dart';
 import 'package:focial/screens/signup/signup_screen.dart';
+import 'package:focial/services/auth.dart';
 import 'package:focial/utils/assets.dart';
 import 'package:focial/utils/navigation.dart';
 import 'package:focial/utils/strings.dart';
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 8.0),
             _getForm(controller, context),
             _getButtons(controller, context),
-            _getSocialMediaButtons()
+            _getSocialMediaButtons(controller)
           ],
         ),
       );
@@ -104,7 +105,7 @@ class LoginScreen extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: FlatButton(
               padding: const EdgeInsets.only(left: 6.0, right: 16.0),
-              onPressed: controller.forgotPassword,
+              onPressed: controller.state == AuthState.Busy ? null : controller.forgotPassword,
               child: Text(
                 'Forgot password?',
                 style: AppTheme.flatButtonTheme,
@@ -114,7 +115,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
             child: AppPlatformButtonWithArrow(
-              onPressed: controller.loginEnabled ? () => controller.validateAndLogin(context) : null,
+              onPressed: controller.state == AuthState.Busy ? null : () => controller.validateAndLogin(context),
               text: 'LOGIN',
             ),
           ),
@@ -130,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     FlatButton(
                       padding: const EdgeInsets.only(left: 6.0),
-                      onPressed: () {
+                      onPressed: controller.state == AuthState.Busy ? null : () {
                         Navigator.of(context)
                             .push(AppNavigation.route(SignUpScreen()));
                       },
@@ -147,7 +148,7 @@ class LoginScreen extends StatelessWidget {
   Widget _resendAccVerificationLink(LoginViewModel controller) {
     return FlatButton(
       padding: const EdgeInsets.only(left: 6.0),
-      onPressed: controller.resendAccountVerificationLink,
+      onPressed: controller.state == AuthState.Busy ? null : controller.resendAccountVerificationLink,
       child: Text(
         'Resend verification link',
         style: AppTheme.flatButtonTheme,
@@ -155,18 +156,18 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _getSocialMediaButtons() {
+  Widget _getSocialMediaButtons(LoginViewModel controller) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SocialMediaButton(
-          onPressed: () {},
+          onPressed: controller.state == AuthState.Busy ? null : () {},
           asset: Assets.GOOGLE_LOGO,
           text: Strings.LOGIN_WITH_GOOGLE,
         ),
         SizedBox(height: 8.0),
         SocialMediaButton(
-          onPressed: () {},
+          onPressed: controller.state == AuthState.Busy ? null : () {},
           asset: Assets.FACEBOOK_LOGO,
           text: Strings.LOGIN_WITH_FACEBOOK,
         ),
