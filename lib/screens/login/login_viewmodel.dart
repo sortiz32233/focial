@@ -17,11 +17,16 @@ class LoginViewModel extends ChangeNotifier {
   String email, password;
   bool _activateResendVerificationLink = false;
   bool _passwordShown = false;
+  AuthState state;
 
   BuildContext _context;
 
   void init(BuildContext context) {
     _context = context;
+    authService.authState.listen((event) {
+      state = event;
+      notifyListeners();
+    });
   }
 
   void forgotPassword() {

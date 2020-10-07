@@ -7,7 +7,7 @@ import 'package:focial/services/finder.dart';
 import 'package:focial/services/shared_prefs.dart';
 import 'package:focial/utils/server_responses.dart';
 
-enum AuthState { LoggedIn, LoggedOut }
+enum AuthState { LoggedIn, Busy, LoggedOut }
 
 class AuthService {
   final api = find<APIService>().api;
@@ -48,12 +48,15 @@ class AuthService {
   }
 
   Future<Response> login({String email, String password}) async {
+    _authStateSink.add(AuthState.Busy);
     final response = await api.login(
       email: email,
       password: password,
     );
     if (response.isSuccessful) {
       _authStateSink.add(AuthState.LoggedIn);
+    } else {
+      _authStateSink.add(AuthState.LoggedOut);
     }
     await storeAuthTokens(response.headers);
     return response;
