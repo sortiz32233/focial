@@ -19,9 +19,9 @@ class NewPost extends StatelessWidget {
       onModelReady: (m) => m.init(context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'New post',
-            style: TextStyle(
+            style:  TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -29,15 +29,15 @@ class NewPost extends StatelessWidget {
           centerTitle: true,
           actions: [
             FlatButton(
-              child: Text(
-                'POST',
+              onPressed: model.post,
+              child: const Text(
+                'post',
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: model.post,
             )
           ],
         ),
@@ -47,37 +47,33 @@ class NewPost extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
                       radius: 14.0,
                       backgroundColor: Colors.white,
                       backgroundImage: CachedNetworkImageProvider(
-                        currentUser.photoUrl != null
-                            ? currentUser.photoUrl.getAssetURL()
-                            : Assets.DEFAULT_PROFILE_PICTURE,
+                        currentUser.photoUrl != null ? currentUser.photoUrl.getAssetURL() : Assets.defaultProfilePicture,
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Text(
-                      "${currentUser.firstName} ${currentUser.lastName}"
-                          .replaceAll("null", ""),
-                      style: TextStyle(
+                      "${currentUser.firstName} ${currentUser.lastName}".replaceAll("null", ""),
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 CupertinoScrollbar(
                   child: TextField(
                     controller: model.captionController,
                     maxLines: 5,
                     maxLength: 512,
-                    scrollPhysics: BouncingScrollPhysics(),
-                    style: TextStyle(fontSize: 18.0),
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    style: const TextStyle(fontSize: 18.0),
                     decoration: InputDecoration(
                       errorText: model.captionError,
                       contentPadding: const EdgeInsets.all(16.0),
@@ -90,7 +86,7 @@ class NewPost extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 // images
                 imagesList(model)
               ],
@@ -102,14 +98,14 @@ class NewPost extends StatelessWidget {
   }
 
   Widget imagesList(NewPostViewModel model) {
-    var images = <Widget>[];
-    model.images.forEach((element) {
+    final List<Widget> images = <Widget>[];
+    for (final element in model.images) {
       images.add(
         Card(
           elevation: 4.0,
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.blue,
               width: 2.0,
             ),
@@ -123,14 +119,13 @@ class NewPost extends StatelessWidget {
           ),
         ),
       );
-    });
+    }
+
     return SizedBox(
       height: 80.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: []
-          ..addAll(images)
-          ..add(addImageButton(model)),
+        children: [...images, addImageButton(model)],
       ),
     );
   }
@@ -145,7 +140,7 @@ class NewPost extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [
+            children: const [
               Icon(
                 Icons.add_photo_alternate,
                 color: Colors.grey,

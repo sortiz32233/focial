@@ -17,15 +17,10 @@ class _$FocialAPI extends FocialAPI {
   final definitionType = FocialAPI;
 
   @override
-  Future<Response<dynamic>> register(
-      {String name, String email, String password}) {
+  Future<Response<dynamic>> register({String name, String email, String password}) {
     final $url = 'auth/register';
-    final $body = <String, dynamic>{
-      'name': name,
-      'email': email,
-      'password': password
-    };
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $body = <String, dynamic>{'name': name, 'email': email, 'password': password};
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -33,27 +28,22 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> login({String email, String password}) {
     final $url = 'auth/login';
     final $body = <String, dynamic>{'email': email, 'password': password};
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> resendAccountVerifyLink(
-      {String email, String password}) {
+  Future<Response<dynamic>> resendAccountVerifyLink({String email, String password}) {
     final $url = 'auth/token/resend';
     final $body = <String, dynamic>{'email': email, 'password': password};
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> updatePassword(
-      {String oldPassword, String newPassword}) {
+  Future<Response<dynamic>> updatePassword({String oldPassword, String newPassword}) {
     final $url = 'auth/password';
-    final $body = <String, dynamic>{
-      'oldPassword': oldPassword,
-      'newPassword': newPassword
-    };
+    final $body = <String, dynamic>{'oldPassword': oldPassword, 'newPassword': newPassword};
     final $request = Request('PATCH', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
@@ -62,7 +52,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> sendPasswordResetCode({String email}) {
     final $url = 'auth/password/reset/code';
     final $body = <String, dynamic>{'email': email};
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -70,20 +60,15 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> resendPasswordResetCode({String email}) {
     final $url = 'auth/password/reset/code/resend';
     final $body = <String, dynamic>{'email': email};
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> resetPassword(
-      {String email, String otp, String password}) {
+  Future<Response<dynamic>> resetPassword({String email, String otp, String password}) {
     final $url = 'auth/password/reset';
-    final $body = <String, dynamic>{
-      'email': email,
-      'otp': otp,
-      'password': password
-    };
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $body = <String, dynamic>{'email': email, 'otp': otp, 'password': password};
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -113,8 +98,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> uploadProfilePicture(String file) {
     final $url = 'user/pp';
     final $parts = <PartValue>[PartValueFile<String>('file', file)];
-    final $request =
-        Request('POST', $url, client.baseUrl, parts: $parts, multipart: true);
+    final $request = Request('post', $url, client.baseUrl, parts: $parts, multipart: true);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -122,8 +106,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> uploadCoverPicture(String file) {
     final $url = 'user/cover';
     final $parts = <PartValue>[PartValueFile<String>('file', file)];
-    final $request =
-        Request('POST', $url, client.baseUrl, parts: $parts, multipart: true);
+    final $request = Request('post', $url, client.baseUrl, parts: $parts, multipart: true);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -138,7 +121,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> newStory(Map<String, dynamic> body) {
     final $url = 'story';
     final $body = body;
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -146,7 +129,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> newPost(Map<String, dynamic> body) {
     final $url = 'post';
     final $body = body;
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request = Request('post', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -154,8 +137,7 @@ class _$FocialAPI extends FocialAPI {
   Future<Response<dynamic>> uploadPostImage(String file) {
     final $url = 'post/image';
     final $parts = <PartValue>[PartValueFile<String>('file', file)];
-    final $request =
-        Request('POST', $url, client.baseUrl, parts: $parts, multipart: true);
+    final $request = Request('post', $url, client.baseUrl, parts: $parts, multipart: true);
     return client.send<dynamic, dynamic>($request);
   }
 

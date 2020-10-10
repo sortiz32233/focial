@@ -44,16 +44,13 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> resendAccountVerificationLink() async {
     showLoader();
-    final response = await authService.resendAccountVerificationLink(
-        email: email, password: password);
+    final response = await authService.resendAccountVerificationLink(email: email, password: password);
     hideLoader();
     if (response.isSuccessful) {
       activateResendVerificationLink = false;
-      AppOverlays.showSuccess("Email sent",
-          "Your account verification link has been resent, please check your inbox");
+      AppOverlays.showSuccess("Email sent", "Your account verification link has been resent, please check your inbox");
     } else {
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
   }
 
@@ -64,33 +61,31 @@ class LoginViewModel extends ChangeNotifier {
       find<AppDataService>().onLogin();
       Navigator.of(context).push(AppNavigation.route(TabsScreen()));
     } else {
-      if (ServerResponse.getMessage(response)
-          .toLowerCase()
-          .contains("account not verified")) {
+      if (ServerResponse.getMessage(response).toLowerCase().contains("account not verified")) {
         activateResendVerificationLink = true;
       } else {
         activateResendVerificationLink = false;
       }
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
     hideLoader();
   }
 
   String validateEmail(String value) => FormValidators().validateEmail(value);
 
-  String validatePassword(String value) =>
-      FormValidators().validatePassword(value);
+  String validatePassword(String value) => FormValidators().validatePassword(value);
 
   void saveEmail(String value) {
     email = value;
+    notifyListeners();
   }
 
   void savePassword(String value) {
     password = value;
+    notifyListeners();
   }
 
-  togglePasswordVisibility() {
+  void togglePasswordVisibility() {
     passwordShown = !passwordShown;
   }
 

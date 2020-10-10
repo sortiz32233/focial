@@ -18,14 +18,12 @@ class ForgotPassword extends StatelessWidget {
             elevation: 0.0,
             centerTitle: true,
           ),
-          title: Text(
+          title: const Text(
             "Forgot password",
             style: AppTheme.appBarTextStyle,
           ),
         ),
-        body: model.stage == ForgotPasswordStage.SendResetCode
-            ? _sendResetCodeBody(model)
-            : _resetPasswordBody(model),
+        body: model.stage == ForgotPasswordStage.sendResetCode ? _sendResetCodeBody(model) : _resetPasswordBody(model),
       ),
     );
   }
@@ -34,8 +32,8 @@ class ForgotPassword extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
           child: Text(
             'Please enter your email to receive a password reset code',
             textAlign: TextAlign.center,
@@ -62,7 +60,7 @@ class ForgotPassword extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
           child: AppPlatformButtonWithArrow(
@@ -78,8 +76,8 @@ class ForgotPassword extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
           child: Text(
             'Please enter the OTP and new password',
             textAlign: TextAlign.center,
@@ -116,9 +114,7 @@ class ForgotPassword extends StatelessWidget {
                   iconSize: 24.0,
                   error: model.passwordError,
                   suffixIcon: IconButton(
-                    icon: Icon(model.showPassword
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    icon: Icon(model.showPassword ? Icons.visibility_off : Icons.visibility),
                     onPressed: model.togglePasswordVisibility,
                   ),
                   // validator: controller.validateEmail,
@@ -132,12 +128,12 @@ class ForgotPassword extends StatelessWidget {
           FlatButton(
             padding: const EdgeInsets.only(left: 6.0),
             onPressed: model.resendOTP,
-            child: Text(
-              'Didn\'t receive OTP? Click here to resend',
+            child: const Text(
+              "Didn't receive OTP? Click here to resend",
               style: AppTheme.flatButtonTheme,
             ),
           ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
           child: AppPlatformButtonWithArrow(

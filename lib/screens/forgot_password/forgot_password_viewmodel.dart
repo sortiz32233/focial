@@ -6,11 +6,11 @@ import 'package:focial/utils/server_responses.dart';
 import 'package:focial/utils/validators.dart';
 import 'package:ots/ots.dart';
 
-enum ForgotPasswordStage { SendResetCode, ResetPassword }
+enum ForgotPasswordStage { sendResetCode, resetPassword }
 
 class ForgotPasswordViewModel extends ChangeNotifier {
   BuildContext _context;
-  ForgotPasswordStage _stage = ForgotPasswordStage.SendResetCode;
+  ForgotPasswordStage _stage = ForgotPasswordStage.sendResetCode;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -20,6 +20,7 @@ class ForgotPasswordViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     _context = context;
+    notifyListeners();
   }
 
   Future<void> sendResetCode() async {
@@ -29,36 +30,30 @@ class ForgotPasswordViewModel extends ChangeNotifier {
     }
     FocusScope.of(_context).requestFocus(FocusNode());
     showLoader();
-    final response = await find<APIService>()
-        .api
-        .sendPasswordResetCode(email: emailController.text);
+    final response = await find<APIService>().api.sendPasswordResetCode(email: emailController.text);
     if (response.isSuccessful) {
-      stage = ForgotPasswordStage.ResetPassword;
+      stage = ForgotPasswordStage.resetPassword;
       _startActivationOfResendOTP();
     } else {
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
     hideLoader();
   }
 
-  void resendOTP() async {
+  Future<void> resendOTP() async {
     activateResendOTPLink = false;
     showLoader();
-    final response = await find<APIService>()
-        .api
-        .resendPasswordResetCode(email: emailController.text);
+    final response = await find<APIService>().api.resendPasswordResetCode(email: emailController.text);
     if (response.isSuccessful) {
       _startActivationOfResendOTP();
     } else {
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
     hideLoader();
   }
 
-  _startActivationOfResendOTP() {
-    Future.delayed(Duration(minutes: 1)).whenComplete(() {
+  void _startActivationOfResendOTP() {
+    Future.delayed(const Duration(minutes: 1)).whenComplete(() {
       activateResendOTPLink = true;
     });
   }
@@ -115,16 +110,16 @@ class ForgotPasswordViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  get passwordError => _passwordError;
+  String get passwordError => _passwordError;
 
-  set passwordError(value) {
+  set passwordError(String value) {
     _passwordError = value;
     notifyListeners();
   }
 
-  get otpError => _otpError;
+  String get otpError => _otpError;
 
-  set otpError(value) {
+  set otpError(String value) {
     _otpError = value;
     notifyListeners();
   }

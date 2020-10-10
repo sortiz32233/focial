@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'story.g.dart';
 
-enum StoryType { Text }
+enum StoryType { text }
 
 // AuthorData authorData;
 
@@ -28,10 +28,10 @@ class Story {
 
   Map<String, dynamic> toJson() => _$StoryToJson(this);
 
-  static List<Story> listFromJSON(var jsonList) {
-    List<Story> stories = [];
-    for (var c in jsonList) {
-      stories.add(Story.fromJson(c));
+  static List<Story> listFromJSON(dynamic jsonList) {
+    final List<Story> stories = [];
+    for (final c in jsonList) {
+      stories.add(Story.fromJson(c as Map<String, dynamic>));
     }
     return stories;
   }

@@ -9,8 +9,8 @@ import 'package:focial/services/user.dart';
 
 class StoryService extends ChangeNotifier {
   // userId, StoryFeed(userData, stories)
-  Map<String, StoryFeed> _storyFeed = Map();
-  Status _status = Status.Idle;
+  Map<String, StoryFeed> _storyFeed = {};
+  Status _status = Status.idle;
 
   Future<void> getStatuses() async {
     final response = await find<APIService>().api.getStoryFeed();
@@ -28,7 +28,7 @@ class StoryService extends ChangeNotifier {
 
     story.views = [];
     if (response.isSuccessful) {
-      story.storyId = response.body["storyId"];
+      story.storyId = response.body["storyId"].toString();
 
       // this is users' first story
       if (!_storyFeed.containsKey(currentUser.id)) {
@@ -41,7 +41,7 @@ class StoryService extends ChangeNotifier {
         );
       } else {
         _storyFeed.update(currentUser.id, (value) {
-          if (value.stories == null) value.stories = [];
+          value.stories ??= [];
           value.stories.add(story);
           return value;
         });

@@ -73,8 +73,6 @@ class FocialApp extends StatelessWidget {
         ),
       ],
       child: OTS(
-        persistNoInternetNotification: false,
-        showNetworkUpdates: false,
         loader: const Loader(size: 100.0),
         child: PlatformApp(
           title: 'Focial',

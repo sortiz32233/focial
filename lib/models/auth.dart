@@ -6,16 +6,15 @@ class Auth {
   bool isLoggedIn, isTokenValid, isSessionValid;
 
   Auth({this.accessToken, this.refreshToken}) {
-    this.isLoggedIn = _checkLoggedIn();
-    this.isTokenValid = _checkExpiryOfToken();
-    this.isSessionValid = _checkExpiryOfSession();
+    isLoggedIn = _checkLoggedIn();
+    isTokenValid = _checkExpiryOfToken();
+    isSessionValid = _checkExpiryOfSession();
     // print("For $accessToken ${accessToken.isValidByLength()}");
     // print("For $refreshToken ${refreshToken.isValidByLength()}");
     // print("&& ${accessToken.isValidByLength() && refreshToken.isValidByLength()}");
   }
 
-  bool _checkLoggedIn() =>
-      accessToken.isValidByLength() && refreshToken.isValidByLength();
+  bool _checkLoggedIn() => accessToken.isValidByLength() && refreshToken.isValidByLength();
 
   bool _checkExpiryOfToken() {
     if (accessToken.isValidByLength()) return JWT.isExpired(accessToken);
@@ -41,7 +40,7 @@ extension TokenValidity on String {
   bool isValidByLength() {
     if (this == null) return false;
 
-    if (this.length < 200) return false;
+    if (length < 200) return false;
 
     return true;
   }

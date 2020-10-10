@@ -12,7 +12,6 @@ void main() => runApp(
             child: PostWidget(
               postFeed: PostFeed(
                   type: 1,
-                  likes: 0,
                   liked: false,
                   images: [
                     "https://images.pexels.com/photos/755405/pexels-photo-755405.jpeg"
@@ -40,81 +39,75 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              SizedBox(width: 8.0),
-              CircleAvatar(
-                radius: 16.0,
-                backgroundImage:
-                    CachedNetworkImageProvider(postFeed.authorData.photoUrl),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 8.0),
+            CircleAvatar(
+              radius: 16.0,
+              backgroundImage: CachedNetworkImageProvider(postFeed.authorData.photoUrl),
+            ),
+            const SizedBox(width: 12.0),
+            Text(
+              postFeed.authorData.username,
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(width: 12.0),
-              Text(
-                postFeed.authorData.username,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
+        if (postFeed.images != null && postFeed.images.isNotEmpty) getImages(context) else const SizedBox(),
+        // : Divider(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+          child: Text(
+            postFeed.caption,
+          ),
+        ),
+        const Divider(
+          height: 0.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 32.0,
+                child: Row(
+                  children: [
+                    LikeButton(
+                      initiallyLiked: postFeed.liked,
+                    ),
+                    const SizedBox(width: 16.0),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () {},
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Icon(FontAwesomeIcons.commentAlt),
+                      ),
+                    )
+                  ],
                 ),
+              ),
+              const SizedBox(height: 8.0),
+              Row(
+                children: [
+                  Text(
+                    "${postFeed.likes} likes",
+                    style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ],
           ),
-          postFeed.images != null && postFeed.images.length > 0
-              ? getImages(context)
-              : SizedBox(),
-          // : Divider(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-            child: Text(
-              postFeed.caption,
-            ),
-          ),
-          Divider(
-            height: 0.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 32.0,
-                  child: Row(
-                    children: [
-                      LikeButton(
-                        initiallyLiked: postFeed.liked,
-                      ),
-                      SizedBox(width: 16.0),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Icon(FontAwesomeIcons.commentAlt),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    Text(
-                      "${postFeed.likes} likes",
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -122,11 +115,11 @@ class PostWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         SizedBox(
           height: 300.0,
           child: PageView.builder(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemCount: postFeed.images.length,
             itemBuilder: (context, i) => _getStackedImageWithButton(i),
           ),
@@ -159,7 +152,7 @@ class PostWidget extends StatelessWidget {
           right: 12.0,
           child: Text(
             "${i + 1}/${postFeed.images.length}",
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         Positioned(
@@ -167,7 +160,7 @@ class PostWidget extends StatelessWidget {
           left: 12.0,
           child: Text(
             "@${postFeed.authorData.username}",
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
@@ -180,14 +173,13 @@ class PostWidget extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: postFeed.images[i],
       fit: BoxFit.cover,
-      repeat: ImageRepeat.noRepeat,
       progressIndicatorBuilder: (context, data, progress) {
         return Center(
           child: CircularProgressIndicator(
-            // value: (progress.downloaded > 0 ? progress.downloaded : 100.0) /
+            // value: (progress.downloaded.isEmpty ? progress.downloaded : 100.0) /
             //     (progress.totalSize ?? 100.0),
             value: progress.progress ?? 100.0,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
             backgroundColor: Colors.grey.withOpacity(0.3),
           ),
         );
@@ -200,15 +192,13 @@ class LikeButton extends StatefulWidget {
   final bool initiallyLiked;
   final Function(bool) onChanged;
 
-  const LikeButton({Key key, this.initiallyLiked = false, this.onChanged})
-      : super(key: key);
+  const LikeButton({Key key, this.initiallyLiked = false, this.onChanged}) : super(key: key);
 
   @override
   _LikeButtonState createState() => _LikeButtonState();
 }
 
-class _LikeButtonState extends State<LikeButton>
-    with SingleTickerProviderStateMixin {
+class _LikeButtonState extends State<LikeButton> with SingleTickerProviderStateMixin {
   bool _liked;
   AnimationController _likeAnimController;
   Animation<double> _likeAnimation;
@@ -216,12 +206,9 @@ class _LikeButtonState extends State<LikeButton>
   @override
   void initState() {
     _liked = widget.initiallyLiked;
-    _likeAnimController =
-        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
-    _likeAnimation = Tween(begin: 0.5, end: 1.0).animate(CurvedAnimation(
-        parent: _likeAnimController,
-        curve: Curves.easeInOutBack,
-        reverseCurve: Curves.easeInOutBack));
+    _likeAnimController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
+    _likeAnimation = Tween(begin: 0.5, end: 1.0)
+        .animate(CurvedAnimation(parent: _likeAnimController, curve: Curves.easeInOutBack, reverseCurve: Curves.easeInOutBack));
     _likeAnimController.forward(from: 0.98);
     super.initState();
   }
@@ -234,14 +221,6 @@ class _LikeButtonState extends State<LikeButton>
         scale: _likeAnimation.value,
         child: InkWell(
           splashColor: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: _liked
-                ? Icon(FontAwesomeIcons.solidHeart, color: Colors.red)
-                : Icon(
-                    FontAwesomeIcons.heart,
-                  ),
-          ),
           onTap: () {
             setState(() {
               _liked = !_liked;
@@ -249,6 +228,14 @@ class _LikeButtonState extends State<LikeButton>
             _likeAnimController.forward(from: 0.4);
             if (widget.onChanged != null) widget.onChanged(_liked);
           },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: _liked
+                ? const Icon(FontAwesomeIcons.solidHeart, color: Colors.red)
+                : const Icon(
+                    FontAwesomeIcons.heart,
+                  ),
+          ),
         ),
       ),
     );

@@ -10,6 +10,7 @@ class HomeViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     _context = context;
+    notifyListeners();
   }
 
   User get currentUser => find<UserData>().currentUser;

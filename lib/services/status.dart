@@ -1,1 +1,1 @@
-enum ServiceStatus { Loading, Loaded, Error }
+enum ServiceStatus { loading, loaded, error }

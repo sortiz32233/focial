@@ -4,7 +4,7 @@ import 'package:focial/services/post_feed.dart';
 import 'package:stacked/stacked.dart';
 
 class PostFeed extends StatelessWidget {
-  final Function(BuildContext, PostFeedService, Widget) builder;
+  final Widget Function(BuildContext, PostFeedService, Widget) builder;
   final Widget child;
 
   const PostFeed({Key key, this.builder, this.child}) : super(key: key);

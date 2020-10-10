@@ -8,14 +8,14 @@ part of 'post_feed.dart';
 
 PostFeed _$PostFeedFromJson(Map<String, dynamic> json) {
   return PostFeed(
-    id: json['_id'] as String,
+    id: json['_id'].toString(),
     type: json['type'] as int,
     authorData: AuthorData.fromJson(json['user'] as Map<String, dynamic>),
-    caption: json['caption'] as String,
-    images: (json['images'] as List).map((e) => e as String).toList(),
+    caption: json['caption'].toString(),
+    images: (json['images'] as List).map((e) => e.toString()).toList(),
     likes: json['likes'] as int,
     liked: json['liked'] as bool,
-    likedBy: (json['likedBy'] as List).map((e) => e as String).toList(),
+    likedBy: (json['likedBy'] as List).map((e) => e.toString()).toList(),
   );
 }
 

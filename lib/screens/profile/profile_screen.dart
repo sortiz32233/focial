@@ -33,102 +33,91 @@ class ProfileScreen extends StatelessWidget {
   }
 
   // todo: to be optimized
-  Widget _profileModel(
-      ProfileViewModel profileViewModel, Size size, BuildContext context) {
+  Widget _profileModel(ProfileViewModel profileViewModel, Size size, BuildContext context) {
     return UserDataWidget(
-      builder: (context, userData, child) =>
-          _body(userData, size, context, profileViewModel),
+      builder: (context, userData, child) => _body(userData, size, context, profileViewModel),
     );
   }
 
-  Widget _body(UserData userDataProvider, Size size, BuildContext context,
-      ProfileViewModel profileViewModel) {
+  Widget _body(UserData userDataProvider, Size size, BuildContext context, ProfileViewModel profileViewModel) {
     switch (userDataProvider.status) {
-      case Status.Idle:
+      case Status.idle:
         return loading();
-      case Status.Loading:
+      case Status.loading:
         return loading();
-      case Status.Loaded:
+      case Status.loaded:
         return profile(userDataProvider, size, context, profileViewModel);
-      case Status.Error:
+      case Status.error:
         return error();
     }
     return loading();
   }
 
-  Widget loading() => Center(
+  Widget loading() => const Center(
         child: Loader(
           size: 128,
         ),
       );
 
-  Widget idle() => Center(child: Text('Idle'));
+  Widget idle() => const Center(child: Text('Idle'));
 
-  Widget error() => Center(child: Text('Cannot load user data'));
+  Widget error() => const Center(child: Text('Cannot load user data'));
 
-  final padding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
+  final padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
 
-  Widget profile(UserData userDataProvider, Size size, BuildContext context,
-          ProfileViewModel profileViewModel) =>
-      ListView(
+  Widget profile(UserData userDataProvider, Size size, BuildContext context, ProfileViewModel profileViewModel) => ListView(
         children: [
           _getProfileAndCoverPic(userDataProvider, size, profileViewModel),
           Center(
             child: Text(
-              '${userDataProvider.currentUser.firstName} ${userDataProvider.currentUser.lastName}'
-                  .replaceAll("null", ""),
-              style: TextStyle(
+              '${userDataProvider.currentUser.firstName} ${userDataProvider.currentUser.lastName}'.replaceAll("null", ""),
+              style: const TextStyle(
                 color: AppTheme.textColor,
                 fontSize: 20.0,
                 fontWeight: FontWeight.w800,
               ),
             ),
           ),
-          SizedBox(height: 4.0),
+          const SizedBox(height: 4.0),
           Text(
-            "${userDataProvider.currentUser.bio ?? " "}",
+            userDataProvider.currentUser.bio ?? '',
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 4.0),
+          const SizedBox(height: 4.0),
           _getProfileStats(userDataProvider),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           _getSettingsSection(userDataProvider, context),
         ],
       );
 
-  Widget _getProfileAndCoverPic(UserData userDataProvider, Size size,
-          ProfileViewModel profileViewModel) =>
-      SizedBox(
+  Widget _getProfileAndCoverPic(UserData userDataProvider, Size size, ProfileViewModel profileViewModel) => SizedBox(
         height: 320.0,
         child: Stack(
           children: [
-            userDataProvider.currentUser.coverPic != null &&
-                    userDataProvider.currentUser.coverPic.length > 5
-                ? CachedNetworkImage(
-                    imageUrl:
-                        Urls.assetsBase + userDataProvider.currentUser.coverPic,
+            if (userDataProvider.currentUser.coverPic != null && userDataProvider.currentUser.coverPic.length > 5)
+              CachedNetworkImage(
+                imageUrl: Urls.assetsBase + userDataProvider.currentUser.coverPic,
+                fit: BoxFit.fill,
+                height: 260.0,
+                width: double.infinity,
+                placeholder: (context, data) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                imageBuilder: (context, image) => _buildCoverFrame(
+                  Image(
+                    image: image,
                     fit: BoxFit.fill,
-                    height: 260.0,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    placeholder: (context, data) => Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    imageBuilder: (context, image) => _buildCoverFrame(
-                      Image(
-                        image: image,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  )
-                : Image.asset(
-                    "assets/pictures/girl-cover.jpg",
-                    height: 260.0,
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                    frameBuilder: (context, child, res, re) =>
-                        _buildCoverFrame(child),
                   ),
+                ),
+              )
+            else
+              Image.asset(
+                "assets/pictures/girl-cover.jpg",
+                height: 260.0,
+                width: double.infinity,
+                fit: BoxFit.fill,
+                frameBuilder: (context, child, res, re) => _buildCoverFrame(child),
+              ),
             Positioned(
               top: 160.0,
               left: (size.width - 150) / 2,
@@ -138,23 +127,18 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   print("profile picture");
                 },
-                child: userDataProvider.currentUser.photoUrl != null &&
-                        userDataProvider.currentUser.photoUrl.length > 5
+                child: userDataProvider.currentUser.photoUrl != null && userDataProvider.currentUser.photoUrl.length > 5
                     ? CachedNetworkImage(
-                        imageUrl: Urls.assetsBase +
-                            userDataProvider.currentUser.photoUrl,
+                        imageUrl: Urls.assetsBase + userDataProvider.currentUser.photoUrl,
                         fit: BoxFit.fill,
-                        alignment: Alignment.center,
-                        placeholder: (context, data) => Center(
+                        placeholder: (context, data) => const Center(
                           child: CircularProgressIndicator(),
                         ),
-                        imageBuilder: (context, image) => _frameProfilePicture(
-                            context, Image(image: image), 100.0, true),
+                        imageBuilder: (context, image) => _frameProfilePicture(context, Image(image: image), 100.0, true),
                       )
                     : Image.asset(
                         "assets/user.jpg",
                         fit: BoxFit.fill,
-                        alignment: Alignment.center,
                         frameBuilder: _frameProfilePicture,
                       ),
               ),
@@ -200,8 +184,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       );
 
-  Widget _getSettingsSection(UserData userDataProvider, BuildContext context) =>
-      Card(
+  Widget _getSettingsSection(UserData userDataProvider, BuildContext context) => Card(
         elevation: 0.5,
         margin: const EdgeInsets.all(0.0),
         shape: RoundedRectangleBorder(
@@ -231,55 +214,52 @@ class ProfileScreen extends StatelessWidget {
                 text: 'Invite Friends',
                 color: Colors.lightBlueAccent,
               ),
-              ButtonWithIconArrow(
+              const ButtonWithIconArrow(
                 icon: FontAwesomeIcons.solidBell,
                 text: 'Notification Settings',
                 color: Colors.pinkAccent,
               ),
-              ButtonWithIconArrow(
+              const ButtonWithIconArrow(
                 icon: FontAwesomeIcons.photoVideo,
                 text: 'Photos & media',
                 color: Colors.deepOrangeAccent,
               ),
-              ButtonWithIconArrow(
+              const ButtonWithIconArrow(
                 icon: Icons.settings,
                 text: 'Account Settings',
                 color: Colors.greenAccent,
               ),
-              ButtonWithIconArrow(
+              const ButtonWithIconArrow(
                 icon: FontAwesomeIcons.download,
                 text: 'App Updates',
                 color: Colors.indigoAccent,
               ),
-              ButtonWithIconArrow(
+              const ButtonWithIconArrow(
                 icon: FontAwesomeIcons.powerOff,
                 text: 'Log out',
                 color: Colors.redAccent,
               ),
-              SizedBox(height: 32.0),
+              const SizedBox(height: 32.0),
               StackInFlow(),
             ],
           ),
         ),
       );
 
-  Widget _frameProfilePicture(context, child, res, rr) => Material(
+  Widget _frameProfilePicture(context, Widget child, res, rr) => Material(
         color: Colors.white,
-        child: child,
         elevation: 4.0,
         clipBehavior: Clip.antiAlias,
         borderRadius: BorderRadius.circular(8.0),
+        child: child,
       );
 
   Widget _buildCoverFrame(Widget child) => Material(
         elevation: 4.0,
         clipBehavior: Clip.antiAlias,
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.elliptical(150.0, 20),
-            bottomRight: Radius.elliptical(150.0, 20)),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.elliptical(150.0, 20), bottomRight: Radius.elliptical(150.0, 20)),
         child: child,
       );
 
-  void pushScreen(Widget to, BuildContext context) =>
-      Navigator.of(context).push(AppNavigation.route(to));
+  void pushScreen(Widget to, BuildContext context) => Navigator.of(context).push(AppNavigation.route(to));
 }

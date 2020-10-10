@@ -1,6 +1,6 @@
 class Strings {
-  static const String LOGIN_WITH_GOOGLE = 'Signin with Google';
-  static const String SIGNUP_WITH_GOOGLE = 'Signup with Google';
-  static const String LOGIN_WITH_FACEBOOK = 'Signin with Facebook';
-  static const String SIGNUP_WITH_FACEBOOK = 'Signup with Facebook';
+  static const String loginWithGoogle = 'Signin with Google';
+  static const String signupWithGoogle = 'Signup with Google';
+  static const String loginWithFacebook = 'Signin with Facebook';
+  static const String signUpWithFacebook = 'Signup with Facebook';
 }

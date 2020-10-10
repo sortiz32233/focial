@@ -5,9 +5,9 @@ import 'package:focial/services/user.dart';
 
 class AppDataService {
   void onLogin() {
-    find<UserData>()..fetchUser();
-    find<StoryService>()..getStatuses();
-    find<PostFeedService>()..getMyFeed();
+    find<UserData>().fetchUser();
+    find<StoryService>().getStatuses();
+    find<PostFeedService>().getMyFeed();
   }
 
   void onLogOut() {}

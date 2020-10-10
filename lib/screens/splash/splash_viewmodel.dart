@@ -17,10 +17,11 @@ class SplashViewModel extends ChangeNotifier {
       final authService = find<AuthService>();
       await authService.init();
       // print(authService.authData);
-      if (authService.authData.isLoggedIn)
+      if (authService.authData.isLoggedIn) {
         loggedIn(context);
-      else
+      } else {
         notLoggedIn(context);
+      }
     }
   }
 

@@ -9,13 +9,7 @@ class TabsViewmodel extends ChangeNotifier {
   int _currentScreenIndex = 0;
   List<int> _updates = List(5);
 
-  final screens = [
-    HomeScreen(),
-    ExploreScreen(),
-    NotificationsScreen(),
-    ChatsScreen(),
-    ProfileScreen()
-  ];
+  final screens = [HomeScreen(), ExploreScreen(), NotificationsScreen(), ChatsScreen(), ProfileScreen()];
 
   int get currentScreenIndex => _currentScreenIndex;
 
@@ -31,7 +25,7 @@ class TabsViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  updateNotificationCount(int index, int count) {
+  void updateNotificationCount(int index, int count) {
     _updates.removeAt(index);
     _updates.insert(index, count);
     notifyListeners();

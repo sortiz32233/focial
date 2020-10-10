@@ -11,30 +11,30 @@ class PostFeedService extends ChangeNotifier {
   ServiceStatus _status;
 
   Future<Response> getMyFeed() async {
-    status = ServiceStatus.Loading;
+    status = ServiceStatus.loading;
     final response = await find<APIService>().api.getPosts();
     if (response.isSuccessful) {
       final parsedPosts = PostFeed.parseListFromJson(response.body["posts"]);
       _posts.addAll(parsedPosts);
-      _posts = _posts.distinctBy((post) => post.id);
-      status = ServiceStatus.Loaded;
+      _posts = _posts.distinctBy((post) => post.id).toList();
+      status = ServiceStatus.loaded;
       notifyListeners();
     } else {
-      status = ServiceStatus.Error;
+      status = ServiceStatus.error;
     }
     return response;
   }
 
   Future<Response> newPost(PostFeed post) async {
-    status = ServiceStatus.Loading;
+    status = ServiceStatus.loading;
     final response = await find<APIService>().api.newPost(post.toJson());
     if (response.isSuccessful) {
-      post.id = response.body["postId"];
+      post.id = response.body["postId"].toString();
       _posts.add(post);
-      status = ServiceStatus.Loaded;
+      status = ServiceStatus.loaded;
       notifyListeners();
     } else {
-      status = ServiceStatus.Error;
+      status = ServiceStatus.error;
     }
     return response;
   }

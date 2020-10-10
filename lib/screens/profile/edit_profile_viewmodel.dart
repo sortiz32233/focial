@@ -7,12 +7,12 @@ import 'package:focial/utils/overlays.dart';
 import 'package:ots/ots.dart';
 
 final usernameRegex = RegExp('^[a-z][a-z0-9_]{3,15}');
-final phoneRegex =
-    RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}');
+final phoneRegex = RegExp('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}');
+// final phoneRegex = RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}');
 
 class EditProfileViewModel extends ChangeNotifier {
   User currentUser;
-  Status _status = Status.Idle;
+  Status _status = Status.idle;
   String _usernameMessage = "";
   bool _usernameAvailable = false;
   bool _usernameChecked = false;
@@ -27,15 +27,14 @@ class EditProfileViewModel extends ChangeNotifier {
 
   final formKey = GlobalKey<FormState>();
 
-  void updateUserProfile(BuildContext context) async {
+  Future<void> updateUserProfile(BuildContext context) async {
     showLoader(isModal: true);
     final response = await find<UserData>().updateUserProfile(currentUser);
     hideLoader();
     if (response.isSuccessful) {
       Navigator.of(context).pop();
     } else {
-      AppOverlays.showError(
-          "Server response", "Unable to update profile, please try later");
+      AppOverlays.showError("Server response", "Unable to update profile, please try later");
     }
   }
 
@@ -47,8 +46,7 @@ class EditProfileViewModel extends ChangeNotifier {
   }
 
   String usernameValidation(String username) {
-    if (username.length > 15 || username.length < 3)
-      return "Username length is min 3 and max 15";
+    if (username.length > 15 || username.length < 3) return "Username length is min 3 and max 15";
     if (usernameRegex.hasMatch(username)) return null;
     return "Invalid username";
   }
@@ -56,7 +54,7 @@ class EditProfileViewModel extends ChangeNotifier {
   String validateAge(String age) {
     if (age == null) return "Invalid age";
     try {
-      int a = int.parse(age);
+      final int a = int.parse(age);
       if (a > 99 || a < 6) return "Invalid age";
       return null;
     } catch (err) {
@@ -65,20 +63,21 @@ class EditProfileViewModel extends ChangeNotifier {
   }
 
   String validatePhone(String phone) {
-    if (phone == null || phone.length == 0) return null;
+    if (phone == null || phone.isEmpty) return null;
     if (phoneRegex.hasMatch(phone)) return null;
     return "Invalid phone";
   }
 
   void updateUser(User user) {
     currentUser = user;
+    notifyListeners();
   }
 
   Future<void> checkUsername(String username) async {
-    status = Status.Loading;
+    status = Status.loading;
 
     if (!usernameRegex.hasMatch(username) || username.contains("@")) {
-      _status = Status.Idle;
+      _status = Status.idle;
       _usernameError = true;
       _usernameMessage = "Username can only contain lowercase, _, numbers"
           "\nand length can be 3 to 15";
@@ -91,13 +90,13 @@ class EditProfileViewModel extends ChangeNotifier {
         print("username is not valid");
         _usernameError = false;
         _usernameChecked = false;
-        _status = Status.Idle;
+        _status = Status.idle;
         notifyListeners();
         return;
       } else {
         print("sending to server");
         // adding loading status
-        status = Status.Loading;
+        status = Status.loading;
         final available = await find<APIService>().api.checkUsername(username);
         if (available.isSuccessful) {
           // sending username available status
@@ -105,12 +104,12 @@ class EditProfileViewModel extends ChangeNotifier {
           _usernameError = false;
           _usernameMessage = "Username available";
           _usernameAvailable = true;
-          _status = Status.Loaded;
+          _status = Status.loaded;
           notifyListeners();
           return;
         } else {
           // sending username unavailable status
-          _status = Status.Error;
+          _status = Status.error;
           _usernameError = false;
           _usernameAvailable = false;
           _usernameChecked = true;

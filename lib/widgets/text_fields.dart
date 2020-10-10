@@ -5,7 +5,7 @@ class TFWithIcon extends StatelessWidget {
   final String label;
   final int validateLength;
   final Function(String) onChange;
-  final Function(String) validator;
+  final String Function(String) validator;
   final Function(String) save;
   final bool isObscure;
   final TextInputType textInputType;
@@ -36,8 +36,7 @@ class TFWithIcon extends StatelessWidget {
       this.maxLines,
       this.suffixIcon,
       this.initialValue,
-      this.contentPadding =
-          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      this.contentPadding = const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       this.suffix,
       this.borderColor = Colors.white,
       this.icon,
@@ -49,22 +48,19 @@ class TFWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: onChange,
-      scrollPhysics: PageScrollPhysics(),
+      scrollPhysics: const PageScrollPhysics(),
       controller: controller,
       validator: validator ??
           (value) {
             if (validateLength == 0) return null;
             if (value == null) return "Invalid input";
 
-            if (value.length < validateLength)
-              return "${label ?? "Input"} must be valid";
+            if (value.length < validateLength) return "${label ?? "Input"} must be valid";
 
             return null;
           },
-      textAlign: label.toLowerCase().contains("otp")
-          ? TextAlign.center
-          : TextAlign.left,
-      toolbarOptions: ToolbarOptions(
+      textAlign: label.toLowerCase().contains("otp") ? TextAlign.center : TextAlign.left,
+      toolbarOptions: const ToolbarOptions(
         copy: true,
         cut: true,
         paste: true,
@@ -87,7 +83,7 @@ class TFWithIcon extends StatelessWidget {
         contentPadding: contentPadding,
         hintText: hint ?? ' ',
         labelText: label ?? ' ',
-        suffixIcon: suffixIcon != null ? suffixIcon : null,
+        suffixIcon: suffixIcon,
         border: InputBorder.none,
       ),
     );
@@ -99,7 +95,7 @@ class CTextField extends StatelessWidget {
   final String label;
   final int validateLength;
   final Function(String) onChange;
-  final Function(String) validator;
+  final String Function(String) validator;
   final Function(String) save;
   final bool isObscure;
   final TextInputType textInputType;
@@ -129,8 +125,7 @@ class CTextField extends StatelessWidget {
       this.enabled,
       this.padding = const EdgeInsets.all(0.0),
       this.suffix,
-      this.contentPadding =
-          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      this.contentPadding = const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       this.textInputType,
       this.validator,
       this.onChange,
@@ -147,22 +142,19 @@ class CTextField extends StatelessWidget {
         child: TextFormField(
           onChanged: onChange,
           enabled: enabled,
-          scrollPhysics: PageScrollPhysics(),
+          scrollPhysics: const PageScrollPhysics(),
           controller: controller,
           validator: validator ??
-                  (value) {
+              (value) {
                 if (validateLength == 0) return null;
                 if (value == null) return "Invalid input";
 
-                if (value.length < validateLength)
-                  return "${label ?? "Input"} must be valid";
+                if (value.length < validateLength) return "${label ?? "Input"} must be valid";
 
                 return null;
               },
-          textAlign: label.toLowerCase().contains("otp")
-              ? TextAlign.center
-              : TextAlign.left,
-          toolbarOptions: ToolbarOptions(
+          textAlign: label.toLowerCase().contains("otp") ? TextAlign.center : TextAlign.left,
+          toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
             paste: true,

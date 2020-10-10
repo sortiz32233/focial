@@ -38,8 +38,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 icon: items[index].icon,
                 notificationCount: items[index].notificationsCount,
                 size: iconSize,
-                color:
-                    index == currentSelection ? selectedColor : unselectedColor,
+                color: index == currentSelection ? selectedColor : unselectedColor,
               ),
             ),
           ),
@@ -65,15 +64,7 @@ class CustomBottomNavBarItemBuilder extends StatelessWidget {
   final TextStyle style;
   final int notificationCount;
 
-  const CustomBottomNavBarItemBuilder(
-      {Key key,
-      this.icon,
-      this.size,
-      this.color,
-      this.text,
-      this.style,
-      this.notificationCount})
-      : super(key: key);
+  const CustomBottomNavBarItemBuilder({Key key, this.icon, this.size, this.color, this.text, this.style, this.notificationCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +96,11 @@ class CustomBottomNavBarItemBuilder extends StatelessWidget {
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
                           '$notificationCount',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 8.0,
-                              fontWeight: FontWeight.w700),
+                          style: const TextStyle(color: Colors.white, fontSize: 8.0, fontWeight: FontWeight.w700),
                         ),
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
           ],
         ),
@@ -136,7 +124,7 @@ class CustomBottomNavBarItemBuilder extends StatelessWidget {
       //     Positioned(
       //       top: -5.0,
       //       right: 0.0,
-      //       child: notificationCount > 0
+      //       child: notificationCount.isEmpty
       //           ? Material(
       //               type: MaterialType.circle,
       //               color: Colors.red,
@@ -144,11 +132,11 @@ class CustomBottomNavBarItemBuilder extends StatelessWidget {
       //                 padding: const EdgeInsets.all(4.0),
       //                 child: Text(
       //                   '$notificationCount',
-      //                   style: TextStyle(color: Colors.white),
+      //                   style: const TextStyle(color: Colors.white),
       //                 ),
       //               ),
       //             )
-      //           : SizedBox(),
+      //           : const SizedBox(),
       //     )
       //   ],
       // ),

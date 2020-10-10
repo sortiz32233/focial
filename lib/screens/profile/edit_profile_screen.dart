@@ -10,9 +10,8 @@ import 'package:focial/widgets/button.dart';
 import 'package:stacked/stacked.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  final contentPadding =
-      EdgeInsets.only(left: 0.0, right: 8.0, top: 8.0, bottom: 8.0);
-  final border = UnderlineInputBorder();
+  final contentPadding = const EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8.0);
+  final border = const UnderlineInputBorder();
 
   final _debouncer = Debouncer(milliseconds: 300);
 
@@ -22,12 +21,12 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text(
+        title: const Text(
           'Edit profile',
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.of(context).pop();
             }),
@@ -45,13 +44,11 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _getUpdateProfileForm(
-          EditProfileViewModel controller, BuildContext context) =>
-      ListView(
+  Widget _getUpdateProfileForm(EditProfileViewModel controller, BuildContext context) => ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          SizedBox(height: 16.0),
-          Text(
+          const SizedBox(height: 16.0),
+          const Text(
             'Basic details',
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
           ),
@@ -69,7 +66,7 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'First name',
             ),
           ),
-          // SizedBox(height: 8.0),
+          // const SizedBox(height: 8.0),
           TextFormField(
             initialValue: controller.currentUser?.lastName,
             onSaved: (value) {
@@ -81,7 +78,7 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'Last name',
             ),
           ),
-          // SizedBox(height: 8.0),
+          // const SizedBox(height: 8.0),
           TextFormField(
             validator: controller.usernameValidation,
             initialValue: controller.currentUser?.username,
@@ -89,42 +86,36 @@ class EditProfileScreen extends StatelessWidget {
               controller.currentUser.username = value;
             },
             keyboardType: TextInputType.name,
-            inputFormatters: [
-              TextInputFormatter.withFunction((oldValue, newValue) =>
-                  newValue.copyWith(text: newValue.text.toLowerCase()))
-            ],
+            inputFormatters: [TextInputFormatter.withFunction((oldValue, newValue) => newValue.copyWith(text: newValue.text.toLowerCase()))],
             onChanged: (String value) {
               _debouncer.run(() => controller.checkUsername(value));
             },
             decoration: InputDecoration(
                 contentPadding: contentPadding,
                 border: border,
-                suffix: controller.status == Status.Loading
-                    ? SizedBox(
-                        height: 16.0,
-                        width: 16.0,
-                        child: CircularProgressIndicator())
-                    : SizedBox(),
+                suffix: controller.status == Status.loading
+                    ? const SizedBox(height: 16.0, width: 16.0, child: CircularProgressIndicator())
+                    : const SizedBox(),
                 labelText: 'Username',
                 prefixText: '@'),
           ),
-          controller.usernameChecked || controller.usernameError
-              ? Text(
-                  '${controller.usernameMessage}',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: controller.usernameError
-                        ? AppTheme.errorColor
-                        : controller.usernameAvailable
-                            ? Colors.green
-                            : AppTheme.errorColor,
-                  ),
-                )
-              : SizedBox(),
-          // SizedBox(height: 8.0),
+          if (controller.usernameChecked || controller.usernameError)
+            Text(
+              controller.usernameMessage,
+              style: TextStyle(
+                fontSize: 12.0,
+                color: controller.usernameError
+                    ? AppTheme.errorColor
+                    : controller.usernameAvailable
+                        ? Colors.green
+                        : AppTheme.errorColor,
+              ),
+            )
+          else
+            const SizedBox(),
+          // const SizedBox(height: 8.0),
           TextFormField(
             initialValue: controller.currentUser?.bio,
-            maxLines: 1,
             maxLength: 128,
             onSaved: (value) {
               controller.currentUser.bio = value;
@@ -135,7 +126,7 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'Bio',
             ),
           ),
-          // SizedBox(height: 8.0),
+          // const SizedBox(height: 8.0),
           TextFormField(
             initialValue: controller.currentUser?.age?.toString(),
             keyboardType: TextInputType.number,
@@ -149,8 +140,8 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'Age',
             ),
           ),
-          SizedBox(height: 32.0),
-          Text(
+          const SizedBox(height: 32.0),
+          const Text(
             'Contact details',
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
           ),
@@ -167,7 +158,7 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'Phone',
             ),
           ),
-          // SizedBox(height: 8.0),
+          // const SizedBox(height: 8.0),
           TextFormField(
             initialValue: controller.currentUser?.email,
             enabled: false,
@@ -177,7 +168,7 @@ class EditProfileScreen extends StatelessWidget {
               labelText: 'Email',
             ),
           ),
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           AppPlatformButton(
             height: 44.0,
             width: double.infinity,

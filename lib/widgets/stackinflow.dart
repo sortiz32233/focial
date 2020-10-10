@@ -11,7 +11,7 @@ class StackInFlow extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Text(
             'Developed with  ',
             style: TextStyle(fontSize: 14.0),

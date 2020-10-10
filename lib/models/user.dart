@@ -15,7 +15,7 @@ class User {
   String gender;
   String bio;
   int age;
-  var location;
+  String location;
   String photoUrl;
   double latitude;
   double longitude;
@@ -53,7 +53,7 @@ class User {
       String gender,
       String bio,
       int age,
-      var location,
+      String location,
       String photoUrl,
       double latitude,
       double longitude,
@@ -61,7 +61,7 @@ class User {
       int followers,
       int following}) {
     return User(
-      id: this.id,
+      id: id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
