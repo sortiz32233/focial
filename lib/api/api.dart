@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:focial/api/urls.dart';
 import 'package:focial/services/auth.dart';
 import 'package:focial/services/finder.dart';
@@ -86,8 +87,8 @@ class HeadersInterceptor extends RequestInterceptor {
       "Content-Type": "application/json",
     };
 
-    print(auth.authData.accessToken);
-    // print(request.body);
+    debugPrint(auth.authData.accessToken);
+    // debugPrint(request.body);
     headers.addAll({HttpHeaders.authorizationHeader: "Bearer ${auth.authData.accessToken}"});
 
     return request.copyWith(headers: headers);

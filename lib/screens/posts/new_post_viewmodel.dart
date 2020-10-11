@@ -78,7 +78,7 @@ class NewPostViewModel extends ChangeNotifier {
         if (response.isSuccessful) {
           _images.add(response.body["url"].toString());
           notifyListeners();
-          print(images);
+          debugPrint(images.toString());
         }
       }
     }

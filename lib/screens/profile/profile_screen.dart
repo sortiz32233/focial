@@ -125,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
               width: 140.0,
               child: InkWell(
                 onTap: () {
-                  print("profile picture");
+                  debugPrint("profile picture");
                 },
                 child: userDataProvider.currentUser.photoUrl != null && userDataProvider.currentUser.photoUrl.length > 5
                     ? CachedNetworkImage(

@@ -17,11 +17,11 @@ class FocialStories extends StatelessWidget {
     final currentUser = find<UserData>().currentUser;
     if (provider.storyFeed[currentUser.id] != null) {
       if (provider.storyFeed[currentUser.id].stories.isNotEmpty) {
-        print("show him his stories");
+        debugPrint("show him his stories");
         Navigator.of(context).push(AppNavigation.route(ViewStoriesScreen(story: provider.storyFeed[currentUser.id].stories.toList()[0])));
       }
     } else {
-      print("create new story");
+      debugPrint("create new story");
       Navigator.of(context).push(AppNavigation.route(NewStory()));
     }
   }

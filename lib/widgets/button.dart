@@ -149,27 +149,23 @@ class SocialMediaButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: AppPlatformButton(
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
         color: Colors.white,
         onPressed: onPressed,
-        customChild: SizedBox(
-          height: 44.0,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Image.asset(asset),
-                const SizedBox(width: 24.0),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                  ),
-                )
-              ],
-            ),
-          ),
+        customChild: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(asset, height: 44),
+            const SizedBox(width: 24.0),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18.0,
+                color: Colors.black,
+              ),
+            )
+          ],
         ),
       ),
     );

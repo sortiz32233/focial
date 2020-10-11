@@ -37,7 +37,7 @@ dependencies:
   path_provider: ^1.6.14
   logging: ^0.11.4
   cached_network_image: ^2.2.0+1
-  flutter_platform_widgets: ^0.60.1
+  flutter_platform_widgets: ^0.70.1
   firebase_messaging: ^7.0.0
   stacked: ^1.7.6
   ots: ^0.0.1+1

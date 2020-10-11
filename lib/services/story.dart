@@ -18,7 +18,7 @@ class StoryService extends ChangeNotifier {
       final storyFeed = response.body["storyFeed"];
       _storyFeed.addAll(StoryFeed.parseFromJSONAsList(storyFeed));
       notifyListeners();
-      print("no of stories by person: ${storyFeed.length}");
+      debugPrint("no of stories by person: ${storyFeed.length}");
     }
   }
 

@@ -42,7 +42,7 @@ class NewStoryViewmodel extends ChangeNotifier {
       textStyle: _currentTextStyleIndex,
       colorHex: _textColorWhite ? "ffffff" : "000000",
     );
-    print(story);
+    debugPrint(story.toString());
     final response = await find<StoryService>().newStory(story);
     if (response.isSuccessful) {
       Navigator.of(_context).pop();

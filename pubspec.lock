@@ -320,7 +320,7 @@ packages:
       name: flutter_platform_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.60.2"
+    version: "0.70.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -933,4 +933,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.10.0-110 <2.11.0"
-  flutter: ">=1.20.0 <2.0.0"
+  flutter: ">=1.20.4 <2.0.0"

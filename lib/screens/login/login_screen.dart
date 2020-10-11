@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
       viewModelBuilder: () => LoginViewModel(),
       onModelReady: (m) => m.init(context),
       builder: (context, model, child) => Scaffold(
-        appBar: _appBar(),
+        // appBar: _appBar(),
         backgroundColor: AppTheme.backgroundColor,
         body: _getBody(model, context),
         bottomNavigationBar: StackInFlow(),
@@ -27,15 +27,16 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  AppBar _appBar() => AppBar(
-        title: const Text(
-          'Login',
-          style: AppTheme.appBarTextStyle,
-        ),
-      );
+  // AppBar _appBar() => AppBar(
+  //       title: const Text(
+  //         'Login',
+  //         style: AppTheme.appBarTextStyle,
+  //       ),
+  //     );
 
   Widget _getBody(LoginViewModel controller, BuildContext context) => SafeArea(
         child: ListView(
+          physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.all(8.0),
           children: [
             const Padding(

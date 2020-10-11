@@ -9,9 +9,9 @@ class Auth {
     isLoggedIn = _checkLoggedIn();
     isTokenValid = _checkExpiryOfToken();
     isSessionValid = _checkExpiryOfSession();
-    // print("For $accessToken ${accessToken.isValidByLength()}");
-    // print("For $refreshToken ${refreshToken.isValidByLength()}");
-    // print("&& ${accessToken.isValidByLength() && refreshToken.isValidByLength()}");
+    // debugPrint("For $accessToken ${accessToken.isValidByLength()}");
+    // debugPrint("For $refreshToken ${refreshToken.isValidByLength()}");
+    // debugPrint("&& ${accessToken.isValidByLength() && refreshToken.isValidByLength()}");
   }
 
   bool _checkLoggedIn() => accessToken.isValidByLength() && refreshToken.isValidByLength();

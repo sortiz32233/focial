@@ -34,7 +34,7 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen> with SingleTicker
     );
     super.initState();
     // _controller.addListener(() {
-    //   // print(_animation.value);
+    //   // debugPrint(_animation.value);
     // });
     _listenToGestures();
     _controller.forward();
@@ -112,11 +112,11 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen> with SingleTicker
 
   void onLongPressStart(LongPressStartDetails details) {
     _controller.stop();
-    print("stopping animation at ${_animation.value}");
+    debugPrint("stopping animation at ${_animation.value}");
   }
 
   void onLongPressEnd(LongPressEndDetails details) {
-    print("restarting animation at ${_animation.value}");
+    debugPrint("restarting animation at ${_animation.value}");
     _controller.forward(from: _animation.value as double);
   }
 

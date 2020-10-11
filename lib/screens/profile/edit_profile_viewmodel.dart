@@ -21,7 +21,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     // _context = context;
-    // print(find<UserData>().currentUser);
+    // debugPrint(find<UserData>().currentUser);
     currentUser = find<UserData>().currentUser;
   }
 
@@ -87,14 +87,14 @@ class EditProfileViewModel extends ChangeNotifier {
     } else {
       // check if username is his own
       if (currentUser.username == username) {
-        print("username is not valid");
+        debugPrint("username is not valid");
         _usernameError = false;
         _usernameChecked = false;
         _status = Status.idle;
         notifyListeners();
         return;
       } else {
-        print("sending to server");
+        debugPrint("sending to server");
         // adding loading status
         status = Status.loading;
         final available = await find<APIService>().api.checkUsername(username);

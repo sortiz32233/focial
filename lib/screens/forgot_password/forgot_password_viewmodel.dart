@@ -63,7 +63,7 @@ class ForgotPasswordViewModel extends ChangeNotifier {
   }
 
   Future<void> resetPassword() async {
-    print("resetting password");
+    debugPrint("resetting password");
     if (otpController.text.length != 6) {
       otpError = "Enter a valid OTP";
     }
