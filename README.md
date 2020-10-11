@@ -23,19 +23,99 @@ For backend of this application, please check [focial-backend](https://github.co
 ## What we are doing here
 We're basically building a social media application using `Flutter`
 
-## Progress
-| Feature |  Status  |
-|---------|:--------:|
-|Email login| ✔️ |
-|Social login| ⏳ |
-|Profile screen| ✔️ |
-|Edit profile| ✔️ |
-|Stories| ✔️ |
-|Post feed| ⏳(partially done) |
-|Chat functionality |⏳ |
-|Notifications|⏳|
+<!--
+#features
+-->
+## Features
+1. [Authentication](#authentication)
+2. [Friends](#friends)
+3. [Real-time notifications](#real-time-notifications)
+4. [Stories](#stories)
+5. [Profile section](#profile-section)
+6. [Posts](#posts)
+7. [App](#app)
 
-there is much more left to be done...
+<!--
+#authentication
+-->
+### Authentication
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Signup with email | ✔️ | |
+| Login with email | ✔️ | |
+| Signup with Google/FB | ⏳ | |
+| Login with Google/FB | ⏳ | |
+| Reset password  | ✔️ | |
+| Resend verification token  | ✔️ | |
+
+
+<!--
+#friends
+-->
+### Friends
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Follow friends | ⏳  | |
+| Chat with friends | ⏳  | |
+
+<!--
+#real-time-notifications
+-->
+### Real-time notifications
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| For likes on your post | ⏳  | |
+| For comments on your post | ⏳  | |
+| For new follow request | ⏳  | |
+| For acceptance of follow request | ⏳  | |
+
+<!--
+#stories
+-->
+### Stories
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Upload text stories | ✔️  | |
+| Upload image stories | ⏳  | |
+| View stories | ✔️  | |
+| Tap and stop story | ✔️  | |
+| Reply to stories | ⏳  | |
+
+<!--
+#profile-section
+-->
+### Profile section
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Upload profile picture and other details | ✔️  | |
+| Change username | ✔️  | |
+| Delete account | ⏳  | |
+| Download user data | ⏳  | |
+| Logout | ⏳  | |
+| Logout from other login sessions | ⏳  | |
+
+<!--
+#posts
+-->
+### Posts
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Upload text posts | ✔️ | |
+| Upload image posts | ✔️ | |
+| View posts whom you follow/public posts | ⏳ | |
+| View posts whom you follow/public posts | ⏳ | |
+| Comment on posts  | ⏳ | |
+| Share posts  | ⏳ | |
+| Like posts  | ⏳  | |
+
+<!--
+#app
+-->
+### App
+| Feature | Status | Comments |
+|-----------------------------------|:-------------:|----------------|
+| Share app | ✔️ | |
+
 
 ## Contribution
 We 💖 contributions, please find the contribution [guidelines](https://stackinflow.github.io/)
