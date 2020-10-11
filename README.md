@@ -3,7 +3,7 @@
 
 <p align="center"> A <strong>social media 👻</strong> app using <strong>flutter</strong> - UI toolkit from google for 📱 </p>
 
-![Build and upload artifacts](https://github.com/stackinflow/focial/workflows/Build%20and%20upload%20artifacts/badge.svg) ![Gitter](https://img.shields.io/gitter/room/stackinflow/focial) ![GitHub Hacktoberfest combined status](https://img.shields.io/github/hacktoberfest/2020/stackinflow/focial) ![Status](https://img.shields.io/badge/status-development-blue)
+![Build and upload artifacts](https://github.com/stackinflow/focial/workflows/Build%20and%20upload%20artifacts/badge.svg) ![Gitter](https://img.shields.io/gitter/room/stackinflow/focial) ![GitHub Hacktoberfest combined status](https://img.shields.io/github/hacktoberfest/2020/stackinflow/focial) ![Status](https://img.shields.io/badge/status-development-blue) ![Code Analysis](https://github.com/stackinflow/focial/workflows/Analyze%20code/badge.svg) ![Build APK](https://github.com/stackinflow/focial/workflows/Build%20APK/badge.svg)
 
 
 For backend of this application, please check [focial-backend](https://github.com/stackinflow/focial-backend)
