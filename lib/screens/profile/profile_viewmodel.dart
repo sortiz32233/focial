@@ -9,27 +9,26 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   // BuildContext _context;
-  var pp;
-  var cp;
+  PickedFile pp;
+  PickedFile cp;
   final userData = find<UserData>();
-  Status status = Status.Loaded;
+  Status status = Status.loaded;
 
-  void pickProfilePicture() async {
+  Future<void> pickProfilePicture() async {
     // ignore: invalid_use_of_visible_for_testing_member
-    pp = await ImagePicker.platform
-        .pickImage(source: ImageSource.gallery, imageQuality: 80);
+    pp = await ImagePicker.platform.pickImage(source: ImageSource.gallery, imageQuality: 80);
 
     if (pp != null) {
-      File croppedFile = await ImageCropper.cropImage(
-        sourcePath: pp.path,
-        androidUiSettings: AndroidUiSettings(
+      final File croppedFile = await ImageCropper.cropImage(
+        sourcePath: pp.path.toString(),
+        androidUiSettings: const AndroidUiSettings(
           toolbarTitle: 'Crop Image',
           toolbarColor: AppTheme.primaryColor,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: true,
         ),
-        iosUiSettings: IOSUiSettings(
+        iosUiSettings: const IOSUiSettings(
           minimumAspectRatio: 1.0,
         ),
       );
@@ -39,22 +38,21 @@ class ProfileViewModel extends ChangeNotifier {
     }
   }
 
-  void pickCoverPicture() async {
+  Future<void> pickCoverPicture() async {
     // ignore: invalid_use_of_visible_for_testing_member
-    cp = await ImagePicker.platform
-        .pickImage(source: ImageSource.gallery, imageQuality: 80);
+    cp = await ImagePicker.platform.pickImage(source: ImageSource.gallery, imageQuality: 80);
 
     if (cp != null) {
-      File croppedFile = await ImageCropper.cropImage(
-        sourcePath: cp.path,
-        androidUiSettings: AndroidUiSettings(
+      final File croppedFile = await ImageCropper.cropImage(
+        sourcePath: cp.path.toString(),
+        androidUiSettings: const AndroidUiSettings(
           toolbarTitle: 'Crop Image',
           toolbarColor: AppTheme.primaryColor,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.ratio16x9,
           lockAspectRatio: true,
         ),
-        iosUiSettings: IOSUiSettings(
+        iosUiSettings: const IOSUiSettings(
           minimumAspectRatio: 1.0,
         ),
       );

@@ -16,25 +16,16 @@ class PostFeed {
   bool liked;
   List<String> likedBy;
 
-  PostFeed(
-      {this.id,
-      this.type,
-      this.authorData,
-      this.caption,
-      this.images,
-      this.likes = 0,
-      this.liked,
-      this.likedBy});
+  PostFeed({this.id, this.type, this.authorData, this.caption, this.images, this.likes = 0, this.liked, this.likedBy});
 
-  factory PostFeed.fromJson(Map<String, dynamic> json) =>
-      _$PostFeedFromJson(json);
+  factory PostFeed.fromJson(Map<String, dynamic> json) => _$PostFeedFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostFeedToJson(this);
 
-  static List<PostFeed> parseListFromJson(var jsonList) {
-    List<PostFeed> res = [];
-    for (var l in jsonList) {
-      res.add(PostFeed.fromJson(l));
+  static List<PostFeed> parseListFromJson(dynamic jsonList) {
+    final List<PostFeed> res = [];
+    for (final l in jsonList) {
+      res.add(PostFeed.fromJson(l as Map<String, dynamic>));
     }
     return res;
   }

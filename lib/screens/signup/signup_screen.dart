@@ -24,8 +24,8 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _appBar() => AppBar(
-        title: Text(
+  AppBar _appBar() => AppBar(
+        title: const Text(
           'Signup',
           style: AppTheme.appBarTextStyle,
         ),
@@ -35,19 +35,18 @@ class SignUpScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(8.0),
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
               child: Text(
-                'Welcome to Focial\nRegister and get started, we never share our user\'s  data',
+                "Welcome to Focial\nRegister and get started, we never share our user's  data",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16.0),
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             _getForm(controller, context),
             _getButtons(controller, context),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             _getSocialMediaButtons(controller),
           ],
         ),
@@ -72,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
                   validateLength: 3,
                   save: controller.saveName,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8.0,
                 ),
                 TFWithIcon(
@@ -83,7 +82,7 @@ class SignUpScreen extends StatelessWidget {
                   validator: controller.validateEmail,
                   save: controller.saveEmail,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8.0,
                 ),
                 TFWithIcon(
@@ -94,9 +93,7 @@ class SignUpScreen extends StatelessWidget {
                   isObscure: !controller.passwordShown,
                   save: controller.savePassword,
                   suffixIcon: IconButton(
-                    icon: Icon(controller.passwordShown
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    icon: Icon(controller.passwordShown ? Icons.visibility_off : Icons.visibility),
                     onPressed: () => controller.togglePasswordVisibility(),
                   ),
                 )
@@ -106,11 +103,10 @@ class SignUpScreen extends StatelessWidget {
         ),
       );
 
-  Widget _getButtons(SignUpViewModel controller, BuildContext context) =>
-      Column(
+  Widget _getButtons(SignUpViewModel controller, BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 16.0,
           ),
           Padding(
@@ -120,7 +116,7 @@ class SignUpScreen extends StatelessWidget {
               text: 'SIGNUP',
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -128,13 +124,13 @@ class SignUpScreen extends StatelessWidget {
                 'By creating an account, you agree to our',
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              SizedBox(height: 6.0),
+              const SizedBox(height: 6.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {},
-                    child: Text(
+                    child: const Text(
                       'Terms of service  ',
                       style: AppTheme.flatButtonTheme,
                     ),
@@ -145,7 +141,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {},
-                    child: Text(
+                    child: const Text(
                       '  Privacy policy',
                       style: AppTheme.flatButtonTheme,
                     ),
@@ -163,14 +159,14 @@ class SignUpScreen extends StatelessWidget {
       children: [
         SocialMediaButton(
           onPressed: () {},
-          asset: Assets.GOOGLE_LOGO,
-          text: Strings.SIGNUP_WITH_GOOGLE,
+          asset: Assets.googleLogo,
+          text: Strings.signupWithGoogle,
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         SocialMediaButton(
           onPressed: () {},
-          asset: Assets.FACEBOOK_LOGO,
-          text: Strings.SIGNUP_WITH_FACEBOOK,
+          asset: Assets.facebookLogo,
+          text: Strings.signUpWithFacebook,
         ),
       ],
     );

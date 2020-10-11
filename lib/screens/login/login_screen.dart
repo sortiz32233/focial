@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
       viewModelBuilder: () => LoginViewModel(),
       onModelReady: (m) => m.init(context),
       builder: (context, model, child) => Scaffold(
-        appBar: _appBar(),
+        // appBar: _appBar(),
         backgroundColor: AppTheme.backgroundColor,
         body: _getBody(model, context),
         bottomNavigationBar: StackInFlow(),
@@ -27,27 +27,27 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _appBar() => AppBar(
-        title: Text(
-          'Login',
-          style: AppTheme.appBarTextStyle,
-        ),
-      );
+  // AppBar _appBar() => AppBar(
+  //       title: const Text(
+  //         'Login',
+  //         style: AppTheme.appBarTextStyle,
+  //       ),
+  //     );
 
   Widget _getBody(LoginViewModel controller, BuildContext context) => SafeArea(
         child: ListView(
+          physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.all(8.0),
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
               child: Text(
                 'Please enter the credentials which you have used during registration',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 17.0),
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             _getForm(controller, context),
             _getButtons(controller, context),
             _getSocialMediaButtons(controller)
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                   validator: controller.validateEmail,
                   save: controller.saveEmail,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8.0,
                 ),
                 TFWithIcon(
@@ -86,9 +86,7 @@ class LoginScreen extends StatelessWidget {
                   isObscure: !controller.passwordShown,
                   save: controller.savePassword,
                   suffixIcon: IconButton(
-                    icon: Icon(controller.passwordShown
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    icon: Icon(controller.passwordShown ? Icons.visibility_off : Icons.visibility),
                     onPressed: () => controller.togglePasswordVisibility(),
                   ),
                 ),
@@ -105,8 +103,8 @@ class LoginScreen extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: FlatButton(
               padding: const EdgeInsets.only(left: 6.0, right: 16.0),
-              onPressed: controller.state == AuthState.Busy ? null : controller.forgotPassword,
-              child: Text(
+              onPressed: controller.state == AuthState.busy ? null : controller.forgotPassword,
+              child: const Text(
                 'Forgot password?',
                 style: AppTheme.flatButtonTheme,
               ),
@@ -115,41 +113,43 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
             child: AppPlatformButtonWithArrow(
-              onPressed: controller.state == AuthState.Busy ? null : () => controller.validateAndLogin(context),
+              onPressed: controller.state == AuthState.busy ? null : () => controller.validateAndLogin(context),
               text: 'LOGIN',
             ),
           ),
-          controller.activateResendVerificationLink
-              ? _resendAccVerificationLink(controller)
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'New to Focial?',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                    FlatButton(
-                      padding: const EdgeInsets.only(left: 6.0),
-                      onPressed: controller.state == AuthState.Busy ? null : () {
-                        Navigator.of(context)
-                            .push(AppNavigation.route(SignUpScreen()));
-                      },
-                      child: Text(
-                        'Create an account',
-                        style: AppTheme.flatButtonTheme,
-                      ),
-                    )
-                  ],
+          if (controller.activateResendVerificationLink)
+            _resendAccVerificationLink(controller)
+          else
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'New to Focial?',
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
+                FlatButton(
+                  padding: const EdgeInsets.only(left: 6.0),
+                  onPressed: controller.state == AuthState.busy
+                      ? null
+                      : () {
+                          Navigator.of(context).push(AppNavigation.route(SignUpScreen()));
+                        },
+                  child: const Text(
+                    'Create an account',
+                    style: AppTheme.flatButtonTheme,
+                  ),
+                )
+              ],
+            ),
         ],
       );
 
   Widget _resendAccVerificationLink(LoginViewModel controller) {
     return FlatButton(
       padding: const EdgeInsets.only(left: 6.0),
-      onPressed: controller.state == AuthState.Busy ? null : controller.resendAccountVerificationLink,
-      child: Text(
+      onPressed: controller.state == AuthState.busy ? null : controller.resendAccountVerificationLink,
+      child: const Text(
         'Resend verification link',
         style: AppTheme.flatButtonTheme,
       ),
@@ -161,15 +161,15 @@ class LoginScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SocialMediaButton(
-          onPressed: controller.state == AuthState.Busy ? null : () {},
-          asset: Assets.GOOGLE_LOGO,
-          text: Strings.LOGIN_WITH_GOOGLE,
+          onPressed: controller.state == AuthState.busy ? null : () {},
+          asset: Assets.googleLogo,
+          text: Strings.loginWithGoogle,
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         SocialMediaButton(
-          onPressed: controller.state == AuthState.Busy ? null : () {},
-          asset: Assets.FACEBOOK_LOGO,
-          text: Strings.LOGIN_WITH_FACEBOOK,
+          onPressed: controller.state == AuthState.busy ? null : () {},
+          asset: Assets.facebookLogo,
+          text: Strings.loginWithFacebook,
         ),
       ],
     );

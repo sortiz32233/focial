@@ -3,14 +3,8 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StoryTextStyles {
-  static final styles = [
-    _roboto,
-    _ruluko,
-    _comforta,
-    _merriweather,
-    _lobster,
-    _patrikHand
-  ];
+  final style = 10;
+  static final styles = [_roboto, _ruluko, _comforta, _merriweather, _lobster, _patrikHand];
   static const fontSize = 28.0;
 
   static final TextStyle _roboto = TextStyle(

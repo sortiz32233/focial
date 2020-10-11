@@ -13,6 +13,7 @@ class SignUpViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     _context = context;
+    notifyListeners();
   }
 
   final authService = GetIt.I<AuthService>();
@@ -25,45 +26,42 @@ class SignUpViewModel extends ChangeNotifier {
     FocusScope.of(context).requestFocus(FocusNode());
     showLoader();
     formKey.currentState.save();
-    debugPrint(
-        "register fields are correct, name: $name, email: $email, password: $password");
+    debugPrint("register fields are correct, name: $name, email: $email, password: $password");
     register();
   }
 
   Future<void> register() async {
-    final response = await authService.register(
-        email: email, password: password, name: name);
+    final response = await authService.register(email: email, password: password, name: name);
     if (response.isSuccessful) {
-      AppOverlays.showSuccess(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showSuccess("Server response", ServerResponse.getMessage(response));
       formKey.currentState.reset();
-      Navigator.of(_context)
-          .pushReplacement(AppNavigation.route(LoginScreen()));
+      Navigator.of(_context).pushReplacement(AppNavigation.route(LoginScreen()));
     } else {
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
     hideLoader();
   }
 
   String validateEmail(String value) => FormValidators().validateEmail(value);
 
-  String validatePassword(String value) =>
-      FormValidators().validatePassword(value);
+  String validatePassword(String value) => FormValidators().validatePassword(value);
 
   void saveName(String value) {
     name = value;
+    notifyListeners();
   }
 
   void saveEmail(String value) {
     email = value;
+    notifyListeners();
   }
 
   void savePassword(String value) {
     password = value;
+    notifyListeners();
   }
 
-  togglePasswordVisibility() {
+  void togglePasswordVisibility() {
     passwordShown = !passwordShown;
   }
 

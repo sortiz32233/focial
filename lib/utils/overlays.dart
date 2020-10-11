@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ots/ots.dart';
 
 class AppOverlays {
-  static showSuccess(String title, String message) {
+  static void showSuccess(String title, String message) {
     showNotification(
       title: title,
       message: message,
@@ -10,14 +10,14 @@ class AppOverlays {
       autoDismissible: true,
       notificationDuration: 3000,
       animDuration: 400,
-      messageStyle: TextStyle(
+      messageStyle: const TextStyle(
         color: Colors.white,
         fontSize: 18.0,
       ),
     );
   }
 
-  static showError(String title, String message) {
+  static void showError(String title, String message) {
     showNotification(
       title: title,
       message: message,
@@ -25,7 +25,7 @@ class AppOverlays {
       autoDismissible: true,
       notificationDuration: 3000,
       animDuration: 400,
-      messageStyle: TextStyle(
+      messageStyle: const TextStyle(
         color: Colors.white,
         fontSize: 18.0,
       ),

@@ -32,8 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
         _newPostAndSearchButton(model),
         // stories
         FocialStories(),
-        SizedBox(height: 4.0),
-        Divider(),
+        const SizedBox(height: 4.0),
+        const Divider(),
         // feed
       ],
     );
@@ -45,16 +45,16 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               FontAwesomeIcons.camera,
               color: Colors.grey,
               size: 20.0,
             ),
             onPressed: model.newPost,
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               FontAwesomeIcons.search,
               color: Colors.grey,
               size: 20.0,

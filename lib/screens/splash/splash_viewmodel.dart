@@ -16,23 +16,24 @@ class SplashViewModel extends ChangeNotifier {
 
       final authService = find<AuthService>();
       await authService.init();
-      // print(authService.authData);
-      if (authService.authData.isLoggedIn)
+      // debugPrint(authService.authData);
+      if (authService.authData.isLoggedIn) {
         loggedIn(context);
-      else
+      } else {
         notLoggedIn(context);
+      }
     }
   }
 
   void loggedIn(BuildContext context) {
-    print("loggedIn");
+    debugPrint("loggedIn");
     // fetch userData in background
     find<AppDataService>().onAppOpen();
-    Navigator.of(context).push(AppNavigation.route(TabsScreen()));
+    Navigator.of(context).pushReplacement(AppNavigation.route(TabsScreen()));
   }
 
   void notLoggedIn(BuildContext context) {
-    print("not loggedIn");
-    Navigator.of(context).push(AppNavigation.route(LoginScreen()));
+    debugPrint("not loggedIn");
+    Navigator.of(context).pushReplacement(AppNavigation.route(LoginScreen()));
   }
 }

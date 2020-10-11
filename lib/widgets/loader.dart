@@ -8,10 +8,10 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: size,
       width: size,
-      child: Image.asset(Assets.LOADER),
+      child: Image.asset(Assets.loader),
     );
   }
 }

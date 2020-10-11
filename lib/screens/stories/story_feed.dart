@@ -16,13 +16,12 @@ class FocialStories extends StatelessWidget {
   void handleCurrentUserStory(BuildContext context, StoryService provider) {
     final currentUser = find<UserData>().currentUser;
     if (provider.storyFeed[currentUser.id] != null) {
-      if (provider.storyFeed[currentUser.id].stories.length > 0) {
-        print("show him his stories");
-        Navigator.of(context).push(AppNavigation.route(ViewStoriesScreen(
-            story: provider.storyFeed[currentUser.id].stories.toList()[0])));
+      if (provider.storyFeed[currentUser.id].stories.isNotEmpty) {
+        debugPrint("show him his stories");
+        Navigator.of(context).push(AppNavigation.route(ViewStoriesScreen(story: provider.storyFeed[currentUser.id].stories.toList()[0])));
       }
     } else {
-      print("create new story");
+      debugPrint("create new story");
       Navigator.of(context).push(AppNavigation.route(NewStory()));
     }
   }
@@ -34,19 +33,17 @@ class FocialStories extends StatelessWidget {
       disposeViewModel: false,
       onModelReady: (m) => {},
       builder: (context, provider, child) {
-        var stories = [
+        final stories = [
           GestureDetector(
-            child: CurrentUserStoryButton(
-              loading: false,
-            ),
             onTap: () => handleCurrentUserStory(context, provider),
+            child: const CurrentUserStoryButton(),
           ),
         ];
         return SizedBox(
           height: storySize,
           width: double.infinity,
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: stories,
           ),
@@ -56,15 +53,15 @@ class FocialStories extends StatelessWidget {
   }
 }
 
-final storySize = 60.0;
-final avatarPadding = 6.0;
-final whiteBackgroundPadding = 4.0;
-final stroke = 3.0;
+const storySize = 60.0;
+const avatarPadding = 6.0;
+const whiteBackgroundPadding = 4.0;
+const stroke = 3.0;
 
 class ViewStoryButton extends StatelessWidget {
   final bool loading, seen, currentUser;
-  final avatarPadding = 5.0;
-  final whiteBackgroundPadding = 3.0;
+  final double avatarPadding;
+  final double whiteBackgroundPadding;
   final String avatar;
 
   const ViewStoryButton(
@@ -72,7 +69,9 @@ class ViewStoryButton extends StatelessWidget {
       this.loading = false,
       this.seen = false,
       this.currentUser = false,
-      this.avatar = Assets.DEFAULT_PROFILE_PICTURE})
+      this.avatar = Assets.defaultProfilePicture,
+      this.avatarPadding = 5.0,
+      this.whiteBackgroundPadding = 3.0})
       : super(key: key);
 
   @override
@@ -81,33 +80,33 @@ class ViewStoryButton extends StatelessWidget {
       padding: const EdgeInsets.only(left: 6.0),
       child: Stack(
         children: [
-          loading
-              ? SizedBox(
-                  height: storySize,
-                  width: storySize,
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.7),
-                    child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(AppTheme.orange),
-                      strokeWidth: stroke,
-                    ),
-                  ),
-                )
-              : Material(
-                  type: MaterialType.circle,
-                  color: seen ? Colors.black12 : AppTheme.orange,
-                  child: SizedBox(
-                    height: storySize,
-                    width: storySize,
-                  ),
+          if (loading)
+            const SizedBox(
+              height: storySize,
+              width: storySize,
+              child: Padding(
+                padding: EdgeInsets.all(1.7),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(AppTheme.orange),
+                  strokeWidth: stroke,
                 ),
+              ),
+            )
+          else
+            Material(
+              type: MaterialType.circle,
+              color: seen ? Colors.black12 : AppTheme.orange,
+              child: const SizedBox(
+                height: storySize,
+                width: storySize,
+              ),
+            ),
           Positioned(
             top: whiteBackgroundPadding,
             bottom: whiteBackgroundPadding,
             right: whiteBackgroundPadding,
             left: whiteBackgroundPadding,
-            child: Material(
+            child: const Material(
               type: MaterialType.circle,
               color: Colors.white,
               child: SizedBox(
@@ -126,31 +125,32 @@ class ViewStoryButton extends StatelessWidget {
               backgroundColor: Colors.white10,
               backgroundImage: CachedNetworkImageProvider(
                 avatar == null
-                    ? Assets.DEFAULT_PROFILE_PICTURE
+                    ? Assets.defaultProfilePicture
                     : avatar.contains("http")
-                    ? avatar
-                    : Urls.assetsBase + avatar,
+                        ? avatar
+                        : Urls.assetsBase + avatar,
               ),
             ),
           ),
-          currentUser
-              ? Positioned(
-                  bottom: 0.0,
-                  right: 0.0,
-                  child: Material(
-                    type: MaterialType.circle,
-                    color: AppTheme.primaryColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 16.0,
-                      ),
-                    ),
+          if (currentUser)
+            const Positioned(
+              bottom: 0.0,
+              right: 0.0,
+              child: Material(
+                type: MaterialType.circle,
+                color: AppTheme.primaryColor,
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 16.0,
                   ),
-          )
-              : SizedBox()
+                ),
+              ),
+            )
+          else
+            const SizedBox()
         ],
       ),
     );
@@ -160,17 +160,16 @@ class ViewStoryButton extends StatelessWidget {
 class CurrentUserStoryButton extends StatelessWidget {
   final bool loading;
 
-  CurrentUserStoryButton({this.loading = false});
+  const CurrentUserStoryButton({this.loading = false});
 
   @override
   Widget build(BuildContext context) {
     return UserDataWidget(
-      builder: (context, model, child) =>
-          ViewStoryButton(
-            loading: loading,
-            currentUser: true,
-            avatar: model.currentUser.photoUrl,
-          ),
+      builder: (context, model, child) => ViewStoryButton(
+        loading: loading,
+        currentUser: true,
+        avatar: model.currentUser.photoUrl,
+      ),
     );
   }
 }

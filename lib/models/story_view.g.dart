@@ -9,7 +9,7 @@ part of 'story_view.dart';
 StoryView _$StoryViewFromJson(Map<String, dynamic> json) {
   return StoryView(
     viewer: AuthorData.fromJson(json['viewer'] as Map<String, dynamic>),
-    timestamp: DateTime.parse(json['timestamp'] as String),
+    timestamp: DateTime.parse(json['timestamp'].toString()),
   );
 }
 

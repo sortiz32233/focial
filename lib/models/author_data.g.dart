@@ -8,14 +8,13 @@ part of 'author_data.dart';
 
 AuthorData _$AuthorDataFromJson(Map<String, dynamic> json) {
   return AuthorData(
-    id: json['userId'] as String,
-    photoUrl: json['photoUrl'] as String,
-    username: json['username'] as String,
+    id: json['userId'].toString(),
+    photoUrl: json['photoUrl'].toString(),
+    username: json['username'].toString(),
   );
 }
 
-Map<String, dynamic> _$AuthorDataToJson(AuthorData instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AuthorDataToJson(AuthorData instance) => <String, dynamic>{
       'userId': instance.id,
       'photoUrl': instance.photoUrl,
       'username': instance.username,

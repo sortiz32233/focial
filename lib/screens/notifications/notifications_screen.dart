@@ -10,7 +10,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      body: Center(
+      body: const Center(
         child: Text('Notification'),
       ),
     );

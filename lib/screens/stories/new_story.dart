@@ -41,7 +41,7 @@ class NewStory extends StatelessWidget {
               color: Colors.transparent,
               shadowColor: Colors.grey.withOpacity(0.4),
               elevation: 4.0,
-              child: Image.asset(Assets.COLOR_WHEEL)),
+              child: Image.asset(Assets.colorWheel)),
         ),
       );
 
@@ -54,7 +54,7 @@ class NewStory extends StatelessWidget {
           onTap: controller.changeTextStyle,
           child: Material(
             type: MaterialType.transparency,
-            child: Image.asset(Assets.TEXT),
+            child: Image.asset(Assets.text),
           ),
         ),
       );
@@ -68,7 +68,7 @@ class NewStory extends StatelessWidget {
           onTap: controller.toggleColor,
           child: Material(
             type: MaterialType.transparency,
-            child: Image.asset(Assets.TEXT_COLOR),
+            child: Image.asset(Assets.textColor),
           ),
         ),
       );
@@ -87,19 +87,17 @@ class NewStory extends StatelessWidget {
         ),
       );
 
-  Widget _textField(NewStoryViewmodel controller, BuildContext context) =>
-      Center(
+  Widget _textField(NewStoryViewmodel controller, BuildContext context) => Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minHeight: 50.0,
             maxHeight: 350.0,
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
             child: Center(
               child: TextFormField(
-                scrollPhysics: NeverScrollableScrollPhysics(),
+                scrollPhysics: const NeverScrollableScrollPhysics(),
                 controller: controller.textEditingController,
                 autofocus: true,
                 textAlign: TextAlign.center,
@@ -107,12 +105,8 @@ class NewStory extends StatelessWidget {
                 maxLength: 160,
                 expands: true,
                 maxLines: null,
-                style: StoryTextStyles.styles[controller.currentTextStyleIndex]
-                    .apply(
-                        color: controller.textColorWhite
-                            ? Colors.white
-                            : Colors.black),
-                decoration: InputDecoration(
+                style: StoryTextStyles.styles[controller.currentTextStyleIndex].apply(color: controller.textColorWhite ? Colors.white : Colors.black),
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                   counter: SizedBox(),
                 ),

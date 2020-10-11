@@ -17,11 +17,11 @@ class NewStoryViewmodel extends ChangeNotifier {
 
   void init(BuildContext context) {
     _context = context;
+    notifyListeners();
   }
 
   void changeGradient() {
-    _currentGradientIndex =
-        (_currentGradientIndex + 1) % Gradients.gradients.length;
+    _currentGradientIndex = (_currentGradientIndex + 1) % Gradients.gradients.length;
     notifyListeners();
   }
 
@@ -31,25 +31,23 @@ class NewStoryViewmodel extends ChangeNotifier {
   }
 
   void changeTextStyle() {
-    _currentTextStyleIndex =
-        (_currentTextStyleIndex + 1) % StoryTextStyles.styles.length;
+    _currentTextStyleIndex = (_currentTextStyleIndex + 1) % StoryTextStyles.styles.length;
     notifyListeners();
   }
 
   Future<void> post() async {
-    Story story = Story(
+    final Story story = Story(
       text: textEditingController.text,
       gradient: _currentGradientIndex,
       textStyle: _currentTextStyleIndex,
       colorHex: _textColorWhite ? "ffffff" : "000000",
     );
-    print(story);
+    debugPrint(story.toString());
     final response = await find<StoryService>().newStory(story);
     if (response.isSuccessful) {
       Navigator.of(_context).pop();
     } else {
-      AppOverlays.showError(
-          "Server response", ServerResponse.getMessage(response));
+      AppOverlays.showError("Server response", ServerResponse.getMessage(response));
     }
   }
 

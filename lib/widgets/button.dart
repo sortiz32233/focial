@@ -54,15 +54,14 @@ class AppPlatformButton extends StatelessWidget {
     final textChild = Text(
       text?.toUpperCase() ?? "",
       style: style ??
-          TextStyle(
+          const TextStyle(
             fontSize: 18.0,
             color: Colors.white,
           ),
     );
 
-    final child = customChild != null
-        ? customChild
-        : (height != null && width != null
+    final child = customChild ??
+        (height != null && width != null
             ? SizedBox(
                 height: height,
                 width: width,
@@ -75,8 +74,8 @@ class AppPlatformButton extends StatelessWidget {
             padding: padding,
             borderRadius: BorderRadius.circular(borderRadius),
             color: color ?? Theme.of(context).primaryColor,
-            child: child,
             onPressed: onPressed,
+            child: child,
           )
         : RaisedButton(
             padding: padding,
@@ -85,8 +84,8 @@ class AppPlatformButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
             ),
             color: color ?? Theme.of(context).primaryColor,
-            child: child,
             onPressed: onPressed,
+            child: child,
           );
   }
 }
@@ -97,9 +96,7 @@ class AppPlatformButtonWithArrow extends StatelessWidget {
   final Color color;
   final EdgeInsets padding;
 
-  const AppPlatformButtonWithArrow(
-      {Key key, this.onPressed, this.text, this.color, this.padding})
-      : super(key: key);
+  const AppPlatformButtonWithArrow({Key key, this.onPressed, this.text, this.color, this.padding}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,17 +108,17 @@ class AppPlatformButtonWithArrow extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            Spacer(),
-            SizedBox(width: 16.0),
+            const Spacer(),
+            const SizedBox(width: 16.0),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Material(
               type: MaterialType.circle,
               color: Colors.white,
@@ -145,35 +142,30 @@ class SocialMediaButton extends StatelessWidget {
   final String asset, text;
   final VoidCallback onPressed;
 
-  const SocialMediaButton({Key key, this.asset, this.text, this.onPressed})
-      : super(key: key);
+  const SocialMediaButton({Key key, this.asset, this.text, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       child: AppPlatformButton(
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
         color: Colors.white,
         onPressed: onPressed,
-        customChild: SizedBox(
-          height: 44.0,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Image.asset(asset),
-                SizedBox(width: 24.0),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                )
-              ],
-            ),
-          ),
+        customChild: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(asset, height: 44),
+            const SizedBox(width: 24.0),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18.0,
+                color: Colors.black,
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -186,9 +178,7 @@ class ButtonWithIconArrow extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
 
-  const ButtonWithIconArrow(
-      {Key key, this.icon, this.text, this.onPressed, this.color})
-      : super(key: key);
+  const ButtonWithIconArrow({Key key, this.icon, this.text, this.onPressed, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +189,7 @@ class ButtonWithIconArrow extends StatelessWidget {
         borderRadius: BorderRadius.circular(4.0),
         child: Row(
           children: [
-            SizedBox(width: 4.0),
+            const SizedBox(width: 4.0),
             Material(
               color: color,
               borderRadius: BorderRadius.circular(8.0),
@@ -212,16 +202,16 @@ class ButtonWithIconArrow extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios),
+            const Spacer(),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),
@@ -233,8 +223,7 @@ class StatisticsText extends StatelessWidget {
   final String count, text;
   final VoidCallback onPressed;
 
-  const StatisticsText({Key key, this.count, this.text, this.onPressed})
-      : super(key: key);
+  const StatisticsText({Key key, this.count, this.text, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -244,15 +233,12 @@ class StatisticsText extends StatelessWidget {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-            text: count + "\n",
-            style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w700,
-                color: Colors.black),
+            text: "$count\n",
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700, color: Colors.black),
           ),
           TextSpan(
             text: text,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           )
         ]),
       ),
@@ -266,8 +252,8 @@ class CameraButton extends StatelessWidget {
     return Material(
       type: MaterialType.circle,
       color: Colors.grey.withOpacity(0.75),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
+      child: const Padding(
+        padding: EdgeInsets.all(12.0),
         child: Icon(
           FontAwesomeIcons.camera,
           color: Colors.white,

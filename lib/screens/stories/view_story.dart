@@ -16,8 +16,7 @@ class ViewStoriesScreen extends StatefulWidget {
   _ViewStoriesScreenState createState() => _ViewStoriesScreenState();
 }
 
-class _ViewStoriesScreenState extends State<ViewStoriesScreen>
-    with SingleTickerProviderStateMixin {
+class _ViewStoriesScreenState extends State<ViewStoriesScreen> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
 
@@ -25,7 +24,7 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 5000),
     );
     _animation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -35,7 +34,7 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
     );
     super.initState();
     // _controller.addListener(() {
-    //   // print(_animation.value);
+    //   // debugPrint(_animation.value);
     // });
     _listenToGestures();
     _controller.forward();
@@ -44,8 +43,7 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
     });
   }
 
-  final Map<Type, GestureRecognizerFactory> gestures =
-      <Type, GestureRecognizerFactory>{};
+  final Map<Type, GestureRecognizerFactory> gestures = <Type, GestureRecognizerFactory>{};
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +70,7 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
                 left: 8.0,
                 child: SafeArea(
                   child: Row(
-                    children: [
+                    children: const [
                       CircleAvatar(
                         radius: 16.0,
                         backgroundImage: CachedNetworkImageProvider(
@@ -98,9 +96,9 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
                   animation: _animation,
                   builder: (context, child) {
                     return LinearProgressIndicator(
-                      value: _animation.value,
+                      value: _animation.value as double,
                       // backgroundColor: Colors.white,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                     );
                   },
                 ),
@@ -114,19 +112,17 @@ class _ViewStoriesScreenState extends State<ViewStoriesScreen>
 
   void onLongPressStart(LongPressStartDetails details) {
     _controller.stop();
-    print("stopping animation at ${_animation.value}");
+    debugPrint("stopping animation at ${_animation.value}");
   }
 
   void onLongPressEnd(LongPressEndDetails details) {
-    print("restarting animation at ${_animation.value}");
-    _controller.forward(from: _animation.value);
+    debugPrint("restarting animation at ${_animation.value}");
+    _controller.forward(from: _animation.value as double);
   }
 
   void _listenToGestures() {
-    gestures[LongPressGestureRecognizer] =
-        GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-      () => LongPressGestureRecognizer(
-          debugOwner: this, duration: Duration(milliseconds: 50)),
+    gestures[LongPressGestureRecognizer] = GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
+      () => LongPressGestureRecognizer(debugOwner: this, duration: const Duration(milliseconds: 50)),
       (LongPressGestureRecognizer instance) {
         instance
               // ..onLongPress = onLongPress

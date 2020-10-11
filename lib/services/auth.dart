@@ -5,14 +5,14 @@ import 'package:focial/models/auth.dart';
 import 'package:focial/services/api.dart';
 import 'package:focial/services/finder.dart';
 import 'package:focial/services/shared_prefs.dart';
-import 'package:focial/utils/server_responses.dart';
+import 'package:focial/utils/server_responses.dart' as sr;
 
-enum AuthState { LoggedIn, Busy, LoggedOut }
+enum AuthState { loggedIn, busy, loggedOut }
 
 class AuthService {
   final api = find<APIService>().api;
 
-  StreamController<AuthState> _authStream = StreamController();
+  final StreamController<AuthState> _authStream = StreamController();
 
   Sink<AuthState> get _authStateSink => _authStream.sink;
 
@@ -22,12 +22,10 @@ class AuthService {
 
   Future<Auth> init() async {
     await SharedPrefs.init();
-    String accessToken = SharedPrefs.getString(ACCESS_TOKEN);
-    String refreshToken = SharedPrefs.getString(REFRESH_TOKEN);
-    authData =
-        authData.copyWith(accessToken: accessToken, refreshToken: refreshToken);
-    _authStateSink
-        .add(authData.isLoggedIn ? AuthState.LoggedIn : AuthState.LoggedOut);
+    final String accessToken = SharedPrefs.getString(sr.accessToken);
+    final String refreshToken = SharedPrefs.getString(sr.refreshToken);
+    authData = authData.copyWith(accessToken: accessToken, refreshToken: refreshToken);
+    _authStateSink.add(authData.isLoggedIn ? AuthState.loggedIn : AuthState.loggedOut);
 
     return authData;
   }
@@ -37,8 +35,7 @@ class AuthService {
     _authStream.close();
   }
 
-  Future<Response> register(
-      {String name, String email, String password}) async {
+  Future<Response> register({String name, String email, String password}) async {
     final response = await api.register(
       name: name,
       email: email,
@@ -48,22 +45,21 @@ class AuthService {
   }
 
   Future<Response> login({String email, String password}) async {
-    _authStateSink.add(AuthState.Busy);
+    _authStateSink.add(AuthState.busy);
     final response = await api.login(
       email: email,
       password: password,
     );
     if (response.isSuccessful) {
-      _authStateSink.add(AuthState.LoggedIn);
+      _authStateSink.add(AuthState.loggedIn);
     } else {
-      _authStateSink.add(AuthState.LoggedOut);
+      _authStateSink.add(AuthState.loggedOut);
     }
     await storeAuthTokens(response.headers);
     return response;
   }
 
-  Future<Response> resendAccountVerificationLink(
-      {String email, String password}) async {
+  Future<Response> resendAccountVerificationLink({String email, String password}) async {
     final response = await api.resendAccountVerifyLink(
       email: email,
       password: password,
@@ -82,10 +78,8 @@ class AuthService {
   }
 
   Future<void> storeAuthTokens(Map<String, String> headers) async {
-    authData = authData.copyWith(
-        accessToken: headers[ACCESS_TOKEN],
-        refreshToken: headers[REFRESH_TOKEN]);
-    await SharedPrefs.putString(ACCESS_TOKEN, authData.accessToken);
-    await SharedPrefs.putString(REFRESH_TOKEN, authData.refreshToken);
+    authData = authData.copyWith(accessToken: headers[sr.accessToken], refreshToken: headers[sr.refreshToken]);
+    await SharedPrefs.putString(sr.accessToken, authData.accessToken);
+    await SharedPrefs.putString(sr.refreshToken, authData.refreshToken);
   }
 }
