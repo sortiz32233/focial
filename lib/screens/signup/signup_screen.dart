@@ -70,6 +70,7 @@ class SignUpScreen extends StatelessWidget {
                   icon: FontAwesomeIcons.user,
                   validateLength: 3,
                   save: controller.saveName,
+                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -81,6 +82,7 @@ class SignUpScreen extends StatelessWidget {
                   iconSize: 24.0,
                   validator: controller.validateEmail,
                   save: controller.saveEmail,
+                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(
                   height: 8.0,
