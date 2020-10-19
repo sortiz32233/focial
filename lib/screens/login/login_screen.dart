@@ -74,6 +74,7 @@ class LoginScreen extends StatelessWidget {
                   iconSize: 27.0,
                   validator: controller.validateEmail,
                   save: controller.saveEmail,
+                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(
                   height: 8.0,

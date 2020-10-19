@@ -20,6 +20,7 @@ class TFWithIcon extends StatelessWidget {
   final IconData icon;
   final double iconSize;
   final String error;
+  final TextInputAction textInputAction;
 
   const TFWithIcon(
       {Key key,
@@ -36,12 +37,14 @@ class TFWithIcon extends StatelessWidget {
       this.maxLines,
       this.suffixIcon,
       this.initialValue,
-      this.contentPadding = const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      this.contentPadding =
+          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       this.suffix,
       this.borderColor = Colors.white,
       this.icon,
       this.iconSize,
-      this.error})
+      this.error,
+      this.textInputAction})
       : super(key: key);
 
   @override
@@ -55,17 +58,21 @@ class TFWithIcon extends StatelessWidget {
             if (validateLength == 0) return null;
             if (value == null) return "Invalid input";
 
-            if (value.length < validateLength) return "${label ?? "Input"} must be valid";
+            if (value.length < validateLength)
+              return "${label ?? "Input"} must be valid";
 
             return null;
           },
-      textAlign: label.toLowerCase().contains("otp") ? TextAlign.center : TextAlign.left,
+      textAlign: label.toLowerCase().contains("otp")
+          ? TextAlign.center
+          : TextAlign.left,
       toolbarOptions: const ToolbarOptions(
         copy: true,
         cut: true,
         paste: true,
         selectAll: true,
       ),
+      textInputAction: textInputAction,
       obscureText: isObscure,
       onSaved: save,
       maxLines: maxLines ?? 1,
@@ -125,7 +132,8 @@ class CTextField extends StatelessWidget {
       this.enabled,
       this.padding = const EdgeInsets.all(0.0),
       this.suffix,
-      this.contentPadding = const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+      this.contentPadding =
+          const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       this.textInputType,
       this.validator,
       this.onChange,
@@ -149,11 +157,14 @@ class CTextField extends StatelessWidget {
                 if (validateLength == 0) return null;
                 if (value == null) return "Invalid input";
 
-                if (value.length < validateLength) return "${label ?? "Input"} must be valid";
+                if (value.length < validateLength)
+                  return "${label ?? "Input"} must be valid";
 
                 return null;
               },
-          textAlign: label.toLowerCase().contains("otp") ? TextAlign.center : TextAlign.left,
+          textAlign: label.toLowerCase().contains("otp")
+              ? TextAlign.center
+              : TextAlign.left,
           toolbarOptions: const ToolbarOptions(
             copy: true,
             cut: true,
